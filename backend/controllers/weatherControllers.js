@@ -70,10 +70,7 @@ const getAllCities = async (req, res) => {
     //     })
     // }
     if(arrayCiudades.length > 0){
-        res.status(200).json({
-            message: "Ciudades obtenidas correctamente",
-            response: arrayCiudades
-        })
+        res.status(200).send(arrayCiudades)
     }else{
         res.status(404).json({
             message: "No hay ciudades",
