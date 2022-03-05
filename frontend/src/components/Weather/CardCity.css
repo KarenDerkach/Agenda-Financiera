@@ -1,0 +1,25 @@
+.card{
+    width: 20vw;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5vh;
+}
+
+.img-weather{
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+    
+
+}
+
+.row-temperature{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+    padding: 0 5%;
+}
