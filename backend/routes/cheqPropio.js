@@ -3,12 +3,16 @@ const express = require('express')
 const route = express.Router()
 
 const {
-    entrieCheqPropio,
-    listCheqPropio
+    addOwnCheq,
+    listOwnCheq,
+    deleteOwnCheq,
+    updateOwnCheq
 } = require('../controllers/cheqPropioControllers')
 
-route.post('/newCheq', entrieCheqPropio)
-route.get('/listCheq', listCheqPropio)
+route.post('/newCheq', addOwnCheq)
+route.get('/listCheq', listOwnCheq)
+route.delete('/deleteCheq/:id', deleteOwnCheq)
+route.put('/updateCheq/:id', updateOwnCheq)
 
 
 module.exports = route
