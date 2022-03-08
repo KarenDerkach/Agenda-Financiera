@@ -1,7 +1,7 @@
 import axios from "axios"
 import { Dispatch } from 'redux';
-import { actionsTypes } from './types'
-import {AllCityDispatch, City, CityDispatch, DeleteDispatch} from '../../tools/interface';
+import { actionsTypes } from '../types'
+import {AllCityDispatch, City, CityDispatch, DeleteDispatch} from '../../../tools/interface';
 
 
 

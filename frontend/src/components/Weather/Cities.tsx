@@ -1,41 +1,43 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux';
 import { StoreState, City} from '../../tools/interface';
-import { allCity, deleteCity, searchCity } from '../../redux/actions/actions'
+import { allCity, deleteCity } from '../../redux/actions/Weather/actions'
 import CardCity from './CardCity';
 import SearchBar from './SearchBar';
+import './Cities.css';
 
 interface CityProps {
 	allCities: City[];
-  city: City[];
 	allCity(): any;
   deleteCity(id:number): any;
-  searchCity(city:string): any;
+  
+ 
 }
 
  function Cities(props : CityProps) {
-   
+   const [change, setChange] = React.useState(false);
+
    useEffect(() => {
      props.allCity()
+    
     }
-    , [props])
+    , [props, change]);
     
     const handleDeleteCity = (id:number) => {
       props.deleteCity(id)
+      setChange(!change)
     }
 
-    const handleSearchCity = (city:string) => {
-      props.searchCity(city)
-    }
+   
     
     return (
       <div>
       
      <h1> Cities</h1>
       <div className="row">
-      <SearchBar getCity={()=>handleSearchCity}/>  
+      <SearchBar/>  
       </div>
-      <div>
+      <div className='container-cities'>
       {
       props.allCities.length > 0 ?
        props.allCities.map((city: City) => { 
@@ -57,11 +59,10 @@ interface CityProps {
   )
 }
 
-const mapStateToProps = (state: StoreState): {allCities: City[], city: City[]} => {
+const mapStateToProps = (state: StoreState): {allCities: City[]} => {
   return {
-    allCities: state.allCities,
-    city: state.city
+    allCities: state.allCities
   };
 };
 
-export default connect(mapStateToProps, {allCity, deleteCity,searchCity})(Cities);
+export default connect(mapStateToProps, {allCity, deleteCity})(Cities);

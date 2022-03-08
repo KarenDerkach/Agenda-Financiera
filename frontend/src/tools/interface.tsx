@@ -14,6 +14,22 @@ export interface City{
     latitud: number,
     longitud: number
 }
+
+export interface OwnCheq{
+    cliente: string,
+    banco: string,
+    numero: number,
+    status: string[],
+    diferido: string,
+    ingreso: string,
+    importe: number,
+    pago:string,
+    observacion: string,
+    _id:string
+}
+
+//DISPATCH
+
 export interface CityDispatch{
     type: actionsTypes.searchCity,
     payload: City[]
@@ -29,8 +45,15 @@ export interface DeleteDispatch{
     payload: City[]
 }
 
+export interface OwnCheqDispatch{
+    type: actionsTypes.addOwnCheq | actionsTypes.getAllOwnCheq | actionsTypes.deleteOwnCheq | actionsTypes.updateOwnCheq
+    payload: OwnCheq[]
+}
+
+//STORE
 export interface StoreState {
 	city: City[],
     allCities: City[],
-    deleteCity: City[]
+    deleteCity: City[],
+    stateOwnCheq: OwnCheq[]
 }
