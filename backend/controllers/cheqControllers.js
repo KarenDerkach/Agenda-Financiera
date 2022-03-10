@@ -1,0 +1,165 @@
+const CheqModel = require('../models/cheq-models')
+
+//emision de cheque
+const addCheq = async(req,res) =>{
+    const {cliente, banco, numero, status, diferido,type, pago,ingreso, importe, observacion} = req.body
+
+    // function configDate (date)  {
+    //     const day = date.split('-').pop().split('').slice(0,2).join('')
+    //     const rest = date.split('-').slice(0,2)
+    
+    //     const allDay = rest.concat(day).reverse().join('/')
+    //     return allDay
+    //   }
+    //   console.log("FECHA DIFERIDO:  ",configDate(diferido))
+
+   try{ 
+    if(cliente && banco && numero && type &&diferido && importe){
+        const newCheq = new CheqModel({
+            cliente,
+            banco,
+            numero,
+            status,
+            diferido,
+            type,
+            pago,
+            ingreso,
+            importe,
+            observacion
+        })
+       await newCheq.save()
+        res.status(200).json({
+            message: "Cheque ingresado correctamente",
+            response: newCheq
+        })}else{
+            res.status(400).json({
+                message: "Faltan datos"
+            })
+        }
+    }
+    catch(err){
+        res.status(500).json({error: err})
+    }
+
+    
+}
+
+//listado de cheques 
+const listCheq = async(req,res) =>{
+    try{
+        const listCheq = await CheqModel.find()
+        res.status(200).send(listCheq)
+    }
+    catch(err){
+        res.status(500).json({error: err})
+    }
+}
+
+const deleteCheq = async(req,res) =>{
+    const {id} = req.params
+    try{
+        const cheq = await CheqModel.findByIdAndDelete(id)
+        res.status(200).json({
+            message: "Cheque eliminado correctamente",
+            response: cheq
+        })
+    }
+    catch(err){
+        res.status(500).json({error: err})
+    }
+}
+
+const updateCheq = async(req,res) =>{
+    const {id} = req.params
+    const {cliente, banco, numero, status, diferido, pago, importe, observacion} = req.body
+    try{
+        const cheq = await CheqModel.findByIdAndUpdate(id,{
+            cliente,
+            banco,
+            numero,
+            status,
+            diferido,
+            pago,
+            importe,
+            observacion
+        })
+        res.status(200).send(cheq)
+    }
+    catch(err){
+        res.status(500).json({error: err})
+    }
+}
+
+//VER DETALLE DE CHEQUE
+
+const detailCheq = async(req,res) =>{
+    const {id} = req.params
+    try{
+        const detail = await CheqModel.findById(id)
+        res.status(200).send(detail)
+    }
+    catch(err){
+        res.status(500).json({error: err})
+    }
+}
+
+//FILTROS
+
+//obtener cheque por  cliente
+const filterCheq = async(req,res) =>{
+    const filter = req.query.filter
+    try{
+        if(filter === 'Pagado'){
+            const cheq7 = await CheqModel.find({status:"Pagado"}).sort({diferido: 1})
+            res.status(200).send(cheq7)
+        }
+        else if(filter === 'Pendiente'){
+            const cheq8 = await CheqModel.find({status:"Pendiente"}).sort({diferido: 1})
+            res.status(200).send(cheq8)
+        }
+        else if(filter === 'Cheque Propio'){
+            const cheq9 = await CheqModel.find({type:"Cheque Propio"}).sort({diferido: 1})
+            res.status(200).send(cheq9)
+
+        }
+        else if(filter === 'Cheque Tercero'){
+            const cheq10 = await CheqModel.find({type:"Cheque Tercero"}).sort({diferido: 1})
+            res.status(200).send(cheq10)
+        }
+        else if(filter === 'Diferido'){
+            const cheq11 = await CheqModel.find({diferido: {$gte: 0}}).sort({diferido: 1})
+            res.status(200).send(cheq11)
+
+        }
+        else if(filter === "Todos"){
+            const cheq12 = await CheqModel
+            res.status(200).send(cheq12)
+        }
+        else{
+            res.status(400).json({
+                message: "Faltan datos"
+            })
+        }
+
+    }
+    catch(err){
+        res.status(500).json({error: err})
+    }
+
+}
+//ORDENAR cheque por fecha diferido
+
+//Obtener cheque por TYPE
+
+//Obtener cheque por status
+
+//Obtener cheque por BANCO
+
+module.exports = {
+    addCheq,
+    listCheq,
+    deleteCheq,
+    updateCheq,
+    detailCheq,
+    filterCheq
+}
