@@ -14,10 +14,10 @@ interface CardCityProps {
 export default function CardCity({name, weather, min, max, img, onClose}: CardCityProps) {
   return (
     <div className="card">
-      <button  className='btn btn-outline-danger mt-2' onClick={onClose}>X</button>
+      <button  className='btnClose' onClick={onClose}>X</button>
       <h3>{name}</h3>
       <img src={"http://openweathermap.org/img/wn/"+img+"@2x.png"} alt={name} className='img-weather'/>
-      <p>{weather}</p>
+      <p className='w-subtitle'>{weather}</p>
       <div className="row-temperature">
             <div>
               <p>Min</p>

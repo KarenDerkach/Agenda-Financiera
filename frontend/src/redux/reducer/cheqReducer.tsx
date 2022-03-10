@@ -1,16 +1,20 @@
 import {actionsTypes} from '../actions/types'
 
-import {OwnCheq, OwnCheqDispatch} from '../../tools/interface';
+import {Cheq, CheqDispatch} from '../../tools/interface';
 
-export const addCheqReducer = (state : OwnCheq[] = [] , action: OwnCheqDispatch )=> {
+export const addCheqReducer = (state : Cheq[] = [] , action: CheqDispatch )=> {
     switch(action.type){
-        case actionsTypes.addOwnCheq:
+        case actionsTypes.addCheq:
             return action.payload
-        case actionsTypes.getAllOwnCheq:
+        case actionsTypes.getAllCheq:
             return action.payload
-        case actionsTypes.deleteOwnCheq:
+        case actionsTypes.deleteCheq:
             return action.payload
-        case actionsTypes.updateOwnCheq:
+        case actionsTypes.updateCheq:
+            return action.payload
+        case actionsTypes.detailCheq:
+            return action.payload
+        case actionsTypes.filterCheq:
             return action.payload
         default:
             return state

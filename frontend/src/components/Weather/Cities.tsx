@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import {connect} from 'react-redux';
 import { StoreState, City} from '../../tools/interface';
 import { allCity, deleteCity } from '../../redux/actions/Weather/actions'
@@ -10,18 +10,15 @@ interface CityProps {
 	allCities: City[];
 	allCity(): any;
   deleteCity(id:number): any;
-  
- 
 }
 
  function Cities(props : CityProps) {
-   const [change, setChange] = React.useState(false);
 
-   useEffect(() => {
-     props.allCity()
-    
-    }
-    , [props, change]);
+   const [change, setChange] = React.useState(false);
+  useEffect(() => {
+  props.allCity()
+
+}, [props,change]);
     
     const handleDeleteCity = (id:number) => {
       props.deleteCity(id)
@@ -31,9 +28,8 @@ interface CityProps {
    
     
     return (
-      <div>
+      <div className='w-container'>
       
-     <h1> Cities</h1>
       <div className="row">
       <SearchBar/>  
       </div>
@@ -51,7 +47,7 @@ interface CityProps {
           onClose = {() => handleDeleteCity(city.id)}
         /> )
           } )
-          : <h3>Busca una ciudad</h3>
+          : <h3 className='text-alt'>Busca una ciudad</h3>
        }
      </div>
       

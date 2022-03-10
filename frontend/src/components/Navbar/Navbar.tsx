@@ -5,23 +5,26 @@ export default function Navbar() {
   return (
     <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link  to='/'className="navbar-brand">  Navbar</Link>
+            <Link  to='/'className="navbar-brand"> Inicio</Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     <li className="nav-item active">
-                       <Link to='/weather'className="nav-link" > Weather</Link> 
+                       <Link to='/weather'className="nav-link" >Clima</Link> 
+                    </li>
+                    <li className="nav-item active">
+                       <Link to='/calendar'className="nav-link" >Calendario</Link> 
                     </li>
                     <li className="nav-item">
                         <Link to='/cheques'className="nav-link"> Chequera</Link> 
                     </li>
                     <li className="nav-item">
-                       <Link to='/notas' className="nav-link"> Notas</Link> 
+                        <Link to='/calculator' className="nav-link" > Calculadora</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to='/calculator' className="nav-link" > Calculadora</Link>
+                       <Link to='/notas' className="nav-link"> Notas</Link> 
                     </li>
                 </ul>
             </div>

@@ -15,11 +15,12 @@ export interface City{
     longitud: number
 }
 
-export interface OwnCheq{
+export interface Cheq{
     cliente: string,
     banco: string,
     numero: number,
     status: string[],
+    type: string[],
     diferido: string,
     ingreso: string,
     importe: number,
@@ -45,9 +46,9 @@ export interface DeleteDispatch{
     payload: City[]
 }
 
-export interface OwnCheqDispatch{
-    type: actionsTypes.addOwnCheq | actionsTypes.getAllOwnCheq | actionsTypes.deleteOwnCheq | actionsTypes.updateOwnCheq
-    payload: OwnCheq[]
+export interface CheqDispatch{
+    type: actionsTypes.addCheq | actionsTypes.getAllCheq | actionsTypes.deleteCheq | actionsTypes.updateCheq |actionsTypes.detailCheq |actionsTypes.filterCheq
+    payload: Cheq[]
 }
 
 //STORE
@@ -55,5 +56,5 @@ export interface StoreState {
 	city: City[],
     allCities: City[],
     deleteCity: City[],
-    stateOwnCheq: OwnCheq[]
+    stateCheq: Cheq[]
 }

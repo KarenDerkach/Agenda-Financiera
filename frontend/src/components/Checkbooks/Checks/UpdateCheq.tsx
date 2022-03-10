@@ -1,13 +1,13 @@
 import React from 'react'
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import {updateOwnCheq} from '../../../redux/actions/Cheqbooks/cheqActions'
-import { StoreState, OwnCheq } from "../../../tools/interface";
+import {updateCheq} from '../../../redux/actions/Cheqbooks/cheqActions'
+import { StoreState, Cheq } from "../../../tools/interface";
 //import swal from "sweetalert";
 
 interface CheqProps {
-    stateOwnCheq: OwnCheq[];
-    updateOwnCheq(id:string,cheq: OwnCheq): any;
+    stateCheq: Cheq[];
+
   
   }
 
@@ -189,10 +189,10 @@ interface CheqProps {
     </div>
   );
 }
-  const mapStateToProps = (state: StoreState): { stateOwnCheq: OwnCheq[] } => {
+  const mapStateToProps = (state: StoreState): { stateCheq: Cheq[] } => {
     return {
-      stateOwnCheq: state.stateOwnCheq,
+      stateCheq: state.stateCheq,
     };
   };
 
-  export default connect(mapStateToProps, {updateOwnCheq})(UpdateCheq);
+  export default connect(mapStateToProps, {updateCheq})(UpdateCheq);

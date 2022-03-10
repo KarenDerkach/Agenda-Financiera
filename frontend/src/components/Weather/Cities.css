@@ -1,7 +1,35 @@
+
+.w-container{
+    background-image: url('../../img/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    scroll-behavior: smooth;
+    height: 100vh;
+    width: 100%;
+}
+
+.w-title{
+    color: #fafafa;
+    font-size: 2.5rem;
+}
+
 .container-cities{
     display: grid;
 grid-template-columns: repeat(3, 1fr);
-grid-template-rows: repeat(3, 1fr);
-grid-column-gap: 3px;
-grid-row-gap: 4px;
+grid-template-rows: repeat(1, 1fr);
+margin-left: 50px;
+margin-right: 50px;
+margin-top: 50px;
+
+}
+
+.text-alt{
+    color: #fafafa;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: 60vh;
 }

@@ -1,16 +1,46 @@
 .card{
     width: 20vw;
-    background-color: transparent;
+    background-color: rgba(171, 209, 3, 0.541);
     display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 5vh;
+    margin: 50px;
+    border: none;
+    border-radius: 10px;
+}
+.w-subtitle{
+    margin-top: -20px;
+    margin-bottom: 5vh;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
+.btnClose{
+    border: solid 1px transparent;
+  border-radius: 10000px;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.5rem;
+margin-left: 30vh;
+margin-top: -3vh;
+  background-color: transparent;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnClose:hover {
+    background-color: #e70d0d;
+    box-shadow: 4px 4px 20px rgba(242, 151, 107, 0.52);;
+    color: white;
+    
+  }
 .img-weather{
     width: 50%;
     height: 50%;
     object-fit: cover;
+    margin-left: 25%;
     
 
 }
@@ -23,3 +53,4 @@
     height: 10%;
     padding: 0 5%;
 }
+

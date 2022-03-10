@@ -64,7 +64,7 @@ function Calculator() {
 
   return (
     <div className='app-header'>
-          <h3 className='app-title'>Calculator</h3>
+          {/* <h3 className='app-title'>Calculator</h3> */}
         <div className='app-container'>
           
             <div className='app-input'>

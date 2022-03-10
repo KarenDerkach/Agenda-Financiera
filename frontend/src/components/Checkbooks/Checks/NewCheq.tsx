@@ -4,45 +4,63 @@ from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-import { StoreState, OwnCheq } from "../../../tools/interface";
+import { StoreState, Cheq } from "../../../tools/interface";
 import {
-  addOwnCheq,
-  getOwnCheq,
-  deleteOwnCheq
+  addCheq,
+  getCheq,
+  deleteCheq,
+  filterCheq
 } from "../../../redux/actions/Cheqbooks/cheqActions";
+/**ICONS */
+// import {FaEdit} from 'react-icons/fa'
+import {FaTrash} from 'react-icons/fa'
+import {GrView} from 'react-icons/gr'
 import "./OwnCheq.css";
 
+
 interface CheqOwnProps {
-  stateOwnCheq: OwnCheq[];
-  addOwnCheq(cheq: OwnCheq): any;
-  getOwnCheq(): any;
-  deleteOwnCheq(id: string): any;
+  stateCheq: Cheq[];
+  addCheq(cheq: Cheq): any;
+  getCheq(): any;
+  deleteCheq(id: string): any;
+  filterCheq(data:string): any;
+
 }
 
 function NewCheq(props: CheqOwnProps) {
- //formato fecha
-  // var today :any = new Date();
-	// var dd : any = today.getDate();
-	// var mm :any= today.getMonth() + 1;
-	// var yyyy = today.getFullYear();
-	// if (dd < 10) {
-	// 	dd = '0' + dd;
-	// }
-	// if (mm < 10) {
-	// 	mm = '0' + mm;
-	// }
-	// today =dd + '-' + mm + '-' + yyyy;
+  const [change , setChange] = React.useState(false);
+  const [filter, setFilter] = React.useState("");
  
   useEffect(() => {
-    props.getOwnCheq();
-    console.log("useEffect: ", props.stateOwnCheq);
-  }, [props]);
+    if(!change){
+      props.getCheq();
+      
+    }else{
+      props.filterCheq(filter)
+    }
+    
+  }, [props, filter, change]);
 
-  const [input, setInput] = React.useState<OwnCheq>({
+  const typeCheq =  ["Cheque Propio", "Cheque Tercero"]
+  const statusCheq = ["Pendiente","Pagado","Cobrado","Vencido","Rechazado","Endosado"]
+ 
+
+  function configDate (date: any)  {
+    if(date === undefined || date === null) return '-'
+    const day: string = date.split('-').pop().split('').slice(0,2).join('')
+    const rest: string[] = date.split('-').slice(0,2)
+
+    const allDay: string = rest.concat(day).reverse().join('/')
+    return allDay
+  }
+  
+
+  const [input, setInput] = React.useState<Cheq>({
     cliente: "",
     banco: "",
     numero: 0,
     status: ["Pendiente"],
+    type: [],
     diferido: '',
     ingreso: '',
     pago: '',
@@ -60,10 +78,11 @@ function NewCheq(props: CheqOwnProps) {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        props.deleteOwnCheq(id);
+        props.deleteCheq(id);
         swal("Poof! Your imaginary file has been deleted!", {
           icon: "success",
         });
+        setChange(false)
       } else {
         swal("Your imaginary file is safe!");
       }
@@ -77,6 +96,13 @@ function NewCheq(props: CheqOwnProps) {
     });
   };
 
+  const handleSelect = (e: any) => {
+    setInput({
+      ...input,
+      type: [e.target.value],
+    });
+  }
+
   const handleSubmit = (e: any) => {
     if (
       input.cliente !== "" &&
@@ -86,12 +112,13 @@ function NewCheq(props: CheqOwnProps) {
       input.importe !== 0
     ) {
       e.preventDefault();
-      props.addOwnCheq(input);
+      props.addCheq(input);
       setInput({
         cliente: "",
         banco: "",
         numero: 0,
         status: [],
+        type: [],
         diferido: "",
         pago: "",
         ingreso: "",
@@ -100,11 +127,30 @@ function NewCheq(props: CheqOwnProps) {
         _id: "",
       });
       swal("Cheq creado", "", "success");
+      setChange(false)
     } else {
       swal("Faltan datos", "", "warning");
     }
   };
 
+
+  //funciones filtrado
+
+  const handleSelectFilter = (e: any) => {
+    console.log('ASI LLEGA EL EVENTO FILTRADO: ',e.target.value)
+    setFilter(e.target.value);
+  }
+
+  const handleClearFilter = () => {
+    setFilter("");
+    props.getCheq();
+  }
+
+  const handleAplyFilter = (e: any) => {
+    e.preventDefault();
+    props.filterCheq(filter);
+    setChange(true);
+  }
   return (
     <>
       <div className="container-view">
@@ -119,52 +165,91 @@ function NewCheq(props: CheqOwnProps) {
           </button>
         </div>
 
+        <div className="new-cheq-btn">
+         <section>
+           <div>FILTRAR</div>
+         <label>Estado</label>
+              <select  onClick={(e)=>handleSelectFilter(e)}>
+                {
+                  statusCheq.map((status: string) => {
+                    return (
+                      <option key={status} value={status}>{status}</option>
+                    )
+                  })
+                }
+              </select>
+            <label>Tipo</label>
+              <select  onClick={(e)=>handleSelectFilter(e)}>
+                {
+                  typeCheq.map((type: string) => {
+                    return (
+                      <option key={type} value={type}>{type}</option>
+                    )
+                  })
+
+                }
+              </select>
+              <button onClick={handleClearFilter}>Limpiar</button>
+            <button onClick={(e)=>handleAplyFilter(e)}>Aplicar</button>
+         </section>
+        </div>
+
         <div className="detail-ownCheq">
-          <h2>LIST CHEQUES</h2>
           <table className="table table-striped">
             <thead>
               <tr>
+                <th scope="col">Tipo</th>
                 <th scope="col">F.Diferido</th>
-                <th scope="col">F.Cobro</th>
+                <th scope="col">F.Cobro/Pago</th>
                 <th scope="col">Banco</th>
                 <th scope="col">Numero</th>
                 <th scope="col">Cliente</th>
                 <th scope="col">Importe</th>
                 <th scope="col">Estado</th>
-                <th scope="col">Observaciones</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {props.stateOwnCheq.length > 0 ? (
-                props.stateOwnCheq.map((cheq: OwnCheq) => {
+              {props.stateCheq.length > 0 ? (
+                props.stateCheq.map((cheq: Cheq) => {
                   return (
                     <>
                    	
                       <tr>
                         <th scope="row" key={cheq._id}>
-                          {cheq.diferido}{" "}
+                          {cheq.type}{" "}
                         </th>
 
-                        <th scope="row">{cheq.pago}</th>
-                        <th scope="row">{cheq.banco}</th>
+                        <th scope="row">{configDate(cheq.diferido)}</th>
+                        <th scope="row">{configDate(cheq.pago)}</th>
+                        <th scope="row">{cheq.banco.toUpperCase()}</th>
                         <th scope="row">{cheq.numero}</th>
-                        <th scope="row">{cheq.cliente}</th>
+                        <th scope="row">{cheq.cliente.toUpperCase()}</th>
                         <th scope="row">{cheq.importe}</th>
                         <th scope="row">{cheq.status}</th>
-                        <th scope="row">{cheq.observacion}</th>
                         <td className="container-actions">
-                        <Link to={`/cheq/${cheq._id}`}> 
+                        
+                        {/* <th scope="row">
+                           <button type="button"
+                            className="btn btn-secondary"
+                                >
+                      <FaEdit/>
+                        </button>
+                          </th> */}
+                          
+
+                          <Link to={`/cheq/${cheq._id}`}>   
                         <th scope="row">
                            <button type="button"
             className="btn btn-secondary"
             data-toggle="modal"
-            data-target="#modal2">Editar</button>
+            data-target="#modal2"><GrView/></button>
                           </th>
                           </Link>
+
                           <th scope="row">
                             <button onClick={() => handleDelete(cheq._id)}>
-                              Eliminar
+                             <FaTrash/>
                             </button>
                           </th>
                         </td>
@@ -199,6 +284,18 @@ function NewCheq(props: CheqOwnProps) {
             </div>
             <div className="modal-body">
               <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                  <label>Tipo</label>
+                  <select onClick={(e)=>handleSelect(e)}>
+                    {
+                      typeCheq.map((type: string) => {
+                        return (
+                          <option key={type} value={type}>{type}</option>
+                        )
+                      })
+                    }
+                  </select>
+                </div>
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Cliente</label>
                   <input
@@ -303,21 +400,24 @@ function NewCheq(props: CheqOwnProps) {
         </div>
       </div>
 
-
+      {/* MODAL DETALLE CHEQ */}
+    
+   
 
      
     </>
   );
 }
 
-const mapStateToProps = (state: StoreState): { stateOwnCheq: OwnCheq[] } => {
+const mapStateToProps = (state: StoreState): { stateCheq: Cheq[] } => {
   return {
-    stateOwnCheq: state.stateOwnCheq,
+    stateCheq: state.stateCheq,
   };
 };
 
 export default connect(mapStateToProps, {
-  addOwnCheq,
-  getOwnCheq,
-  deleteOwnCheq,
+  addCheq,
+  getCheq,
+  deleteCheq,
+  filterCheq,
 })(NewCheq);

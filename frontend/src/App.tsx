@@ -4,11 +4,11 @@ import { BrowserRouter,  Route, Routes } from 'react-router-dom'
 import Menu from './components/Menu/Menu';
 import Cities from './components/Weather/Cities';
 import Navbar from './components/Navbar/Navbar';
-import Checkbooks from './components/Checkbooks/Checkbooks';
-import ThirdCheqComponent from './components/Checkbooks/ThirdCheqComponent';
-import NewCheq from './components/Checkbooks/OwnCheq/NewCheq';
-import UpdateCheq from './components/Checkbooks/OwnCheq/UpdateCheq';
+import NewCheq from './components/Checkbooks/Checks/NewCheq';
+//import UpdateCheq from './components/Checkbooks/OwnCheq/UpdateCheq';
 import Calculator from './components/Calculator/Calculator';
+import DetailCheq from './components/Checkbooks/Checks/DetailCheq';
+import Calendar from './components/Calendar/CalendarScreen';
 
 
 function App() {
@@ -21,12 +21,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Menu />} />
           <Route path="/weather" element={<Cities />} />
-          <Route path="/cheques" element={<Checkbooks />} />
-          <Route path="/addcheq" element={<NewCheq />} />
-          <Route path='/cheq/:_id' element={<UpdateCheq/>} />
-          <Route path="/thirdCheq" element={<ThirdCheqComponent />} />
+          <Route path="/cheques" element={<NewCheq />} />
+          <Route path='/cheq/:id' element={<DetailCheq/>} />
           <Route path="/calculator" element={<Calculator />} />
-
+          <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </div>
   </BrowserRouter>

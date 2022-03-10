@@ -1,0 +1,10 @@
+.bkg-main{
+    background-image: url('../../img/bkg-home.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    scroll-behavior: smooth;
+    height: 100vh;
+    width: 100%;
+    
+}

@@ -7,5 +7,5 @@ export const reducers = combineReducers <StoreState>({
 	city: cityReducer,
 	allCities: allCityReducer,
 	deleteCity:deleteReducer,
-	stateOwnCheq: addCheqReducer
+	stateCheq: addCheqReducer
 });
