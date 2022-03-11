@@ -1,22 +1,27 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import { StoreState, Cheq } from "../../../tools/interface";
 import { connect } from "react-redux";
-import { updateCheq } from "../../../redux/actions/Cheqbooks/cheqActions";
+import { updateCheq, getCheq} from "../../../redux/actions/Cheqbooks/cheqActions";
 import {FaEdit} from 'react-icons/fa'
 
 interface DetailProps {
     stateCheq: Cheq[];
     updateCheq: (id: string, cheq: Cheq) => void;
+    getCheq(): any;
   }
 
  function DetailCheq(props: DetailProps) {
+
+    useEffect(() => {
+        props.getCheq();
+    } , [props]);
 
     const navigate = useNavigate()
     const { id } = useParams();
     const cheq: any = props.stateCheq.find(cheq => cheq._id === id);
 
-  //Configuracion de fechas
+  //FORMATEOS DE LOS DATOS
     function configDate (date: any)  {
       if(date === null || date === undefined) return
       const day: string = date.split('-').pop().split('').slice(0,2).join('')
@@ -25,6 +30,12 @@ interface DetailProps {
       const allDay: string = rest.concat(day).reverse().join('/')
       return allDay
     }
+
+    const formatterPeso = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    })
 
     /////////////////////////////////Edition Section ////////////////////////////////////////
     const [input, setInput] = React.useState<Cheq>({
@@ -47,8 +58,7 @@ interface DetailProps {
     const handleSubmitEdit = (id:string,e: any) => {
       e.preventDefault()
       props.updateCheq(id, input)
-      console.log("asi se manda la data a la action update: ",props.updateCheq(id, input) )
-      navigate('/cheques')	
+      navigate('/cheques')
     }
 
     const handleSelectStatus = (e: any) => {
@@ -83,16 +93,10 @@ interface DetailProps {
               <h5 className="modal-title">Cheque Numero {cheq.numero}</h5>
               <button
                 type="button"
-                data-toggle="modal"
-                data-target="#modal3"
-              >
-                <span aria-hidden="true"><FaEdit/></span>
-              </button>
-              <button
-                type="button"
-                className="close"
+                className="btn btn-danger"
                 data-dismiss="modal"
                 aria-label="Close"
+                onClick={() => navigate("/cheques")}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -103,32 +107,26 @@ interface DetailProps {
                         <p>Cliente: {cheq.cliente}</p>
                         <p>Banco: {cheq.banco}</p>
                         <p>Numero: {cheq.numero}</p>
-                        <p>Importe: {cheq.importe}</p>
+                        <p>Importe: {formatterPeso.format(cheq.importe)}</p>
                         <p>Fecha de emision: {configDate(cheq.ingreso)}</p>
                         <p>Fecha de diferido: {configDate(cheq.diferido)}</p>
                         <p>Fecha Pago/Cobro : {configDate(cheq.pago)}</p>
                         <p>Observaciones: {cheq.observacion}</p>
             </div>   
             <div className="modal-footer">
-              {/* <button
-                type="button"
-                className="btn btn-primary"
-             
-              >
-                Save changes
-              </button> */}
               <button
                 type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-                onClick={() => navigate("/cheques")}
+                data-toggle="modal"
+                data-target="#modal3"
+                className="btn btn-outline-warning"
               >
-                Close
+                <span aria-hidden="true"><FaEdit/></span>
               </button>
             </div>  
           </div>
         </div>
       </div>
+
 {/* MODAL EDIT */}
       <div className="modal" id="modal3">
         <div className="modal-dialog">
@@ -262,6 +260,7 @@ interface DetailProps {
                 type="button"
                 className="btn btn-primary"
                 onClick={(e)=>handleSubmitEdit(cheq._id, e)}
+            
               >
                 Save changes
               </button>
@@ -290,4 +289,4 @@ const mapStateToProps = (state: StoreState): { stateCheq: Cheq[] } => {
     };
   };
   
-export default connect(mapStateToProps, { updateCheq})(DetailCheq);
+export default connect(mapStateToProps, { updateCheq, getCheq})(DetailCheq);

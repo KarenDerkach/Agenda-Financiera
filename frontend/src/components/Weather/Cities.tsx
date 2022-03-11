@@ -4,6 +4,7 @@ import { StoreState, City} from '../../tools/interface';
 import { allCity, deleteCity } from '../../redux/actions/Weather/actions'
 import CardCity from './CardCity';
 import SearchBar from './SearchBar';
+import gif from '../../img/weather-gif.gif'
 import './Cities.css';
 
 interface CityProps {
@@ -16,7 +17,7 @@ interface CityProps {
 
    const [change, setChange] = React.useState(false);
   useEffect(() => {
-  props.allCity()
+     props.allCity()
 
 }, [props,change]);
     
@@ -47,7 +48,7 @@ interface CityProps {
           onClose = {() => handleDeleteCity(city.id)}
         /> )
           } )
-          : <h3 className='text-alt'>Busca una ciudad</h3>
+          : <img src={gif} alt='icono clima'className='weather-gif'/>
        }
      </div>
       

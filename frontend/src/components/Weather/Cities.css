@@ -33,3 +33,13 @@ margin-top: 50px;
     width: 100%;
     margin-left: 60vh;
 }
+
+.weather-gif{
+    width: 25%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 85vh;
+    margin-top: 10vh;
+}

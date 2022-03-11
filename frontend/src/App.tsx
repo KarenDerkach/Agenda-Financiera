@@ -9,6 +9,7 @@ import NewCheq from './components/Checkbooks/Checks/NewCheq';
 import Calculator from './components/Calculator/Calculator';
 import DetailCheq from './components/Checkbooks/Checks/DetailCheq';
 import Calendar from './components/Calendar/CalendarScreen';
+import DetailEvent from './components/Calendar/DetailEvent';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/cheq/:id' element={<DetailCheq/>} />
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path='/events'  element={<DetailEvent/>} />
         </Routes>
       </div>
   </BrowserRouter>

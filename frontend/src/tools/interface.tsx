@@ -29,6 +29,15 @@ export interface Cheq{
     _id:string
 }
 
+export interface Event{
+    title: string,
+    start: any,
+    end: any,
+    notes: string,
+    type: string[],
+    _id:string
+}
+
 //DISPATCH
 
 export interface CityDispatch{
@@ -51,10 +60,16 @@ export interface CheqDispatch{
     payload: Cheq[]
 }
 
+export interface EventDispatch{
+    type: actionsTypes.createEvent | actionsTypes.deleteEvent | actionsTypes.getAllEvents
+    payload: Event[]
+}
+
 //STORE
 export interface StoreState {
 	city: City[],
     allCities: City[],
     deleteCity: City[],
     stateCheq: Cheq[]
+    stateEvent: Event[]
 }

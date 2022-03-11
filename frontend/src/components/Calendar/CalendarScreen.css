@@ -1,0 +1,15 @@
+
+
+.new-event-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px;
+}
+
+.detail-event-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 20px;
+}

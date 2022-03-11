@@ -11,11 +11,11 @@ import {
   deleteCheq,
   filterCheq
 } from "../../../redux/actions/Cheqbooks/cheqActions";
-/**ICONS */
-// import {FaEdit} from 'react-icons/fa'
+/*ICONS */
+
 import {FaTrash} from 'react-icons/fa'
 import {GrView} from 'react-icons/gr'
-import "./OwnCheq.css";
+import "./NewCheq.css";
 
 
 interface CheqOwnProps {
@@ -44,7 +44,7 @@ function NewCheq(props: CheqOwnProps) {
   const typeCheq =  ["Cheque Propio", "Cheque Tercero"]
   const statusCheq = ["Pendiente","Pagado","Cobrado","Vencido","Rechazado","Endosado"]
  
-
+//FORMATEOS
   function configDate (date: any)  {
     if(date === undefined || date === null) return '-'
     const day: string = date.split('-').pop().split('').slice(0,2).join('')
@@ -54,6 +54,11 @@ function NewCheq(props: CheqOwnProps) {
     return allDay
   }
   
+  const formatterPeso = new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0
+  })
 
   const [input, setInput] = React.useState<Cheq>({
     cliente: "",
@@ -154,6 +159,7 @@ function NewCheq(props: CheqOwnProps) {
   return (
     <>
       <div className="container-view">
+        <div className="seccion-menu">
         <div className="new-cheq-btn">
           <button
             type="button"
@@ -161,15 +167,15 @@ function NewCheq(props: CheqOwnProps) {
             data-toggle="modal"
             data-target="#modal1"
           >
-            ADD
+            NUEVO REGISTRO
           </button>
         </div>
 
-        <div className="new-cheq-btn">
-         <section>
-           <div>FILTRAR</div>
+        
+         <section className="filter-cheq-btn" >
+           <div className="title-filter">FILTRAR</div>
          <label>Estado</label>
-              <select  onClick={(e)=>handleSelectFilter(e)}>
+              <select className='select-option' onClick={(e)=>handleSelectFilter(e)}>
                 {
                   statusCheq.map((status: string) => {
                     return (
@@ -179,7 +185,7 @@ function NewCheq(props: CheqOwnProps) {
                 }
               </select>
             <label>Tipo</label>
-              <select  onClick={(e)=>handleSelectFilter(e)}>
+              <select  className='select-option'onClick={(e)=>handleSelectFilter(e)}>
                 {
                   typeCheq.map((type: string) => {
                     return (
@@ -189,10 +195,12 @@ function NewCheq(props: CheqOwnProps) {
 
                 }
               </select>
-              <button onClick={handleClearFilter}>Limpiar</button>
-            <button onClick={(e)=>handleAplyFilter(e)}>Aplicar</button>
+              <div className="seccion-btn-filter">
+              <button className="btn btn-outline-warning" onClick={handleClearFilter}>Limpiar</button>
+            <button className="btn btn-outline-success" onClick={(e)=>handleAplyFilter(e)}>Aplicar</button>
+            </div>
          </section>
-        </div>
+         </div>
 
         <div className="detail-ownCheq">
           <table className="table table-striped">
@@ -225,30 +233,21 @@ function NewCheq(props: CheqOwnProps) {
                         <th scope="row">{cheq.banco.toUpperCase()}</th>
                         <th scope="row">{cheq.numero}</th>
                         <th scope="row">{cheq.cliente.toUpperCase()}</th>
-                        <th scope="row">{cheq.importe}</th>
+                        <th scope="row">{formatterPeso.format(cheq.importe)}</th>
                         <th scope="row">{cheq.status}</th>
                         <td className="container-actions">
-                        
-                        {/* <th scope="row">
-                           <button type="button"
-                            className="btn btn-secondary"
-                                >
-                      <FaEdit/>
-                        </button>
-                          </th> */}
-                          
-
+         
                           <Link to={`/cheq/${cheq._id}`}>   
                         <th scope="row">
                            <button type="button"
-            className="btn btn-secondary"
+            className="view"
             data-toggle="modal"
             data-target="#modal2"><GrView/></button>
                           </th>
                           </Link>
 
                           <th scope="row">
-                            <button onClick={() => handleDelete(cheq._id)}>
+                            <button  className='trash'onClick={() => handleDelete(cheq._id)}>
                              <FaTrash/>
                             </button>
                           </th>

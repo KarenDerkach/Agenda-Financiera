@@ -9,6 +9,9 @@ export enum actionsTypes{
     deleteCheq = 'DELETE_CHEQ',
     updateCheq = 'UPDATE_CHEQ',
     detailCheq = 'DETAIL_CHEQ',
-    filterCheq = 'FILTER_CHEQ'
+    filterCheq = 'FILTER_CHEQ',
+    getAllEvents = 'GET_ALL_EVENT',
+    createEvent = 'CREATE_EVENT',
+    deleteEvent = 'DELETE_EVENT',
 }
 

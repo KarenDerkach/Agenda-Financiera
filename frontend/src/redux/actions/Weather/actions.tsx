@@ -1,4 +1,4 @@
-import axios from "axios"
+import api from "../../../service/api"
 import { Dispatch } from 'redux';
 import { actionsTypes } from '../types'
 import {AllCityDispatch, City, CityDispatch, DeleteDispatch} from '../../../tools/interface';
@@ -8,7 +8,7 @@ import {AllCityDispatch, City, CityDispatch, DeleteDispatch} from '../../../tool
 
 export function searchCity(city:string){
     return async function(dispatch:Dispatch){
-         await axios.get<City[]>(`http://localhost:3001/weather/${city}`)
+         await api.get<City[]>(`/weather/${city}`)
         .then((dataAPI) : void =>{
             dispatch<CityDispatch>({type: actionsTypes.searchCity , payload: dataAPI.data})
         })
@@ -19,7 +19,7 @@ export function searchCity(city:string){
 
 export function allCity (){
     return async function(dispatch:Dispatch){
-        await axios.get<City[]>(`http://localhost:3001/weather`)
+        await api.get<City[]>(`/weather`)
         .then((dataAPI) : void =>{
             dispatch<AllCityDispatch>({type: actionsTypes.allCity , payload: dataAPI.data})
         })
@@ -29,7 +29,7 @@ export function allCity (){
 
 export function deleteCity(id:number){
     return async function(dispatch:Dispatch){
-        await axios.delete(`http://localhost:3001/weather/${id}`)
+        await api.delete(`/weather/${id}`)
         .then((dataAPI) : void =>{
             dispatch<DeleteDispatch>({type: actionsTypes.deleteCity , payload: dataAPI.data})
         })
