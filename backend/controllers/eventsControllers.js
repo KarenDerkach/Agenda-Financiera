@@ -1,5 +1,17 @@
 const EventModel = require('../models/event-models')
 
+const getEvents = async (req, res) => {
+    try {
+        const events = await EventModel.find()
+        res.status(200).send(events)
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error al obtener eventos',
+            error
+        })
+    }
+}
+
 const createEvent = async (req, res) => {
     try {
         const {
@@ -47,6 +59,7 @@ const deleteEvent = async (req, res) => {
 }
 
 module.exports = {
+    getEvents,
     createEvent,
     deleteEvent
 }

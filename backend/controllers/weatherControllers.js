@@ -2,18 +2,19 @@ require('dotenv').config();
 const axios = require('axios');
 
 const {
-    API_PASSWORD
-  } = process.env;
+    API_PASSWORD,
+    URL_API
+} = process.env;
 
 //info ciudad especifica
 const arrayCiudades = []
 
 const dataAPI = async (req, res) => {
     const { ciudad } = req.params
-   
+
     try {
         if (ciudad) {
-            const city = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${API_PASSWORD}&units=metric`)
+            const city = await axios.get(`${URL_API}${ciudad}&appid=${API_PASSWORD}&units=metric`)
             const dataCity = await city.data
             if (dataCity.main !== undefined) {  //si el objeto tiene propiedad main
                 const ciudad = {
@@ -48,30 +49,10 @@ const dataAPI = async (req, res) => {
 
 //obtener todas las ciudades
 const getAllCities = async (req, res) => {
-    // try {
-    //     const cities = await axios.get(`http://api.openweathermap.org/data/2.5/group?id=${arrayCiudades.map(ciudad => ciudad.id)}&appid=${API_PASSWORD}&units=metric`)
-    //    if(cities.data.list.length > 0){
-    //     const dataCities = await cities.data.list
-    //     res.status(200).json({
-    //         message: "Ciudades obtenidas correctamente",
-    //         response: dataCities
-    //     })
-    //    }else{
-    //     res.status(404).json({
-    //         message: "No hay ciudades",
-    //         response: cities
-    //     })
-    //    }
-        
-    // } catch (err) {
-    //     res.status(500).json({
-    //         message: "Hubo un error",
-    //         response: err
-    //     })
-    // }
-    if(arrayCiudades.length > 0){
+
+    if (arrayCiudades.length > 0) {
         res.status(200).send(arrayCiudades)
-    }else{
+    } else {
         res.status(404).json({
             message: "No hay ciudades",
             response: arrayCiudades
@@ -83,8 +64,8 @@ const getAllCities = async (req, res) => {
 const deleteCity = async (req, res) => {
     const { id } = req.params
     const findCity = arrayCiudades.find(ciudad => ciudad.id === Number(id))
-    if(findCity){
-       const newArr = arrayCiudades.splice(arrayCiudades.indexOf(findCity), 1)
+    if (findCity) {
+        const newArr = arrayCiudades.splice(arrayCiudades.indexOf(findCity), 1)
         res.status(200).json({
             message: "Ciudad eliminada correctamente",
             response: newArr
@@ -95,7 +76,7 @@ const deleteCity = async (req, res) => {
         })
     }
 }
-    
+
 module.exports = {
     dataAPI,
     getAllCities,

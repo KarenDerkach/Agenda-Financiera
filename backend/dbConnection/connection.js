@@ -1,12 +1,12 @@
 require('dotenv').config();
 const mongoose = require('mongoose')
 const {
-    PASSWORD,
+    PASSWORD_DB,
     NAME_DB,
 
   } = process.env;
 
-const uriCheq = `mongodb+srv://chequera_app:${PASSWORD}@cluster0.hc8pi.mongodb.net/${NAME_DB}?retryWrites=true&w=majority`
+const uriCheq = `mongodb+srv://chequera_app:${PASSWORD_DB}@cluster0.hc8pi.mongodb.net/${NAME_DB}?retryWrites=true&w=majority`
 
 
 const connection = () =>{

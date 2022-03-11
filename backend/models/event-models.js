@@ -8,7 +8,7 @@ const entrieEventSchema = new Schema({
     start : {type: Date, required: true},
     end: {type: Date, required: true},
     notes: String,
-    type: { type: ["Evento","Tarea"], default: ["Evento"]},
+    type: { type: ["Cumpleaños","Reunion","Trabajo","Tareas", "Otros"], default: ["Reunion"]},
 
 })
 
