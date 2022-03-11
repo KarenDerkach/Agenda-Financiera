@@ -2,14 +2,18 @@ require('dotenv').config();
 const mongoose = require('mongoose')
 const {
     PASSWORD,
-    NAME_DB
+    NAME_DB,
+
   } = process.env;
 
-const uri = `mongodb+srv://chequera_app:${PASSWORD}@cluster0.hc8pi.mongodb.net/${NAME_DB}?retryWrites=true&w=majority`
+const uriCheq = `mongodb+srv://chequera_app:${PASSWORD}@cluster0.hc8pi.mongodb.net/${NAME_DB}?retryWrites=true&w=majority`
+
 
 const connection = () =>{
-    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology:true})
+    mongoose.connect(uriCheq, { useNewUrlParser: true, useUnifiedTopology:true})
+   
 }
+
 
 //metodos de escucha
 //cuando se activa la DB
