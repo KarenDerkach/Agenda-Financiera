@@ -14,7 +14,7 @@ const dataAPI = async (req, res) => {
 
     try {
         if (ciudad) {
-            const city = await axios.get(`${URL_API}${ciudad}&appid=${API_PASSWORD}&units=metric`)
+            const city = await axios.get(`${URL_API}?q=${ciudad}&appid=${API_PASSWORD}&units=metric`)
             const dataCity = await city.data
             if (dataCity.main !== undefined) {  //si el objeto tiene propiedad main
                 const ciudad = {

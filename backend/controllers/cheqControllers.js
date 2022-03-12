@@ -3,16 +3,6 @@ const CheqModel = require('../models/cheq-models')
 //emision de cheque
 const addCheq = async(req,res) =>{
     const {cliente, banco, numero, status, diferido,type, pago,ingreso, importe, observacion} = req.body
-
-    // function configDate (date)  {
-    //     const day = date.split('-').pop().split('').slice(0,2).join('')
-    //     const rest = date.split('-').slice(0,2)
-    
-    //     const allDay = rest.concat(day).reverse().join('/')
-    //     return allDay
-    //   }
-    //   console.log("FECHA DIFERIDO:  ",configDate(diferido))
-
    try{ 
     if(cliente && banco && numero && type &&diferido && importe){
         const newCheq = new CheqModel({

@@ -1,16 +1,15 @@
 require('dotenv').config();
 const mongoose = require('mongoose')
 const {
-    PASSWORD_DB,
-    NAME_DB,
+    
+    URL_MONGODB
 
   } = process.env;
 
-const uriCheq = `mongodb+srv://chequera_app:${PASSWORD_DB}@cluster0.hc8pi.mongodb.net/${NAME_DB}?retryWrites=true&w=majority`
 
 
 const connection = () =>{
-    mongoose.connect(uriCheq, { useNewUrlParser: true, useUnifiedTopology:true})
+    mongoose.connect(URL_MONGODB, { useNewUrlParser: true, useUnifiedTopology:true})
    
 }
 

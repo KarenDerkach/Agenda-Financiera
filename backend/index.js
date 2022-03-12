@@ -5,7 +5,8 @@ const routes = require('./routes/index')
 const cors = require('cors')
 const app = express()
 const {
-    PORT
+    PORT,
+    HOST
   } = process.env;
 
   app.use(express.json())
@@ -23,10 +24,11 @@ app.use(( err, req, res, next) => {
   });
 
 
+app.set('port', PORT || 3001);
 
-app.listen(PORT, async() => {
+app.listen( app.get('port'),  async() => {
     try{ 
-        console.log(`server running on port ${PORT}`)
+        console.log(`server running on port ${app.get('port')}`)
         await connection()
         console.log('CONNECTION DB OK')
     }
