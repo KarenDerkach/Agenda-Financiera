@@ -385,14 +385,7 @@ function NewCheq(props: CheqOwnProps) {
                 className="btn btn-primary"
                 onClick={handleSubmit}
               >
-                Save changes
-              </button>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Close
+                Guardar
               </button>
             </div>
           </div>
