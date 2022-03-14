@@ -13,6 +13,7 @@ const {
 //me traigo las rutas
 app.use('/', routes)
 
+
 //middlewaress
 app.use(( err, req, res, next) => {
     const status = err.status || 500;
