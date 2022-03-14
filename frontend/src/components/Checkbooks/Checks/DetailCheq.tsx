@@ -2,6 +2,8 @@ import React, {useEffect} from 'react'
 import { useParams, useNavigate } from "react-router-dom";
 import { StoreState, Cheq } from "../../../tools/interface";
 import { connect } from "react-redux";
+import moment from 'moment';
+import swal from 'sweetalert';
 import { updateCheq, getCheq} from "../../../redux/actions/Cheqbooks/cheqActions";
 import {FaEdit} from 'react-icons/fa'
 
@@ -56,6 +58,9 @@ interface DetailProps {
     const statusCheq = ["Pendiente","Pagado","Cobrado","Vencido","Rechazado","Endosado"]
 
     const handleSubmitEdit = (id:string,e: any) => {
+      const momentPago_Cobro = moment(input.pago)
+    const momentDiferido= moment(input.diferido);
+if(momentPago_Cobro.isAfter(momentDiferido)) return swal("Error", "La fecha de pago no puede ser anterior a la fecha de diferido", "error")
       e.preventDefault()
       props.updateCheq(id, input)
       navigate('/cheques')

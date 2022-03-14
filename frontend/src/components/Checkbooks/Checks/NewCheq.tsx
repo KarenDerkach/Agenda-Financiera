@@ -1,9 +1,11 @@
 import React,
 { useEffect } 
 from "react";
+
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import moment from "moment";
 import { StoreState, Cheq } from "../../../tools/interface";
 import {
   addCheq,
@@ -12,7 +14,6 @@ import {
   filterCheq
 } from "../../../redux/actions/Cheqbooks/cheqActions";
 /*ICONS */
-
 import {FaTrash} from 'react-icons/fa'
 import {GrView} from 'react-icons/gr'
 import "./NewCheq.css";
@@ -59,7 +60,7 @@ function NewCheq(props: CheqOwnProps) {
     currency: 'COP',
     minimumFractionDigits: 0
   })
-
+/////////////////////////////////////////////////////////////////////////////////
   const [input, setInput] = React.useState<Cheq>({
     cliente: "",
     banco: "",
@@ -76,20 +77,15 @@ function NewCheq(props: CheqOwnProps) {
 
   const handleDelete = ( id: string) => {
     // console.log("ID QUE RECIBE LA FUNCION DELETE: ",id)
-    swal({
-      title: "Estas seguro?",
-      text: "Una vez eliminado, no podras recuperar este cheque!",
-      icon: "warning",
+    swal("Estas seguro?", {
       dangerMode: true,
+      buttons: [true, "Eliminar"],
     }).then((willDelete) => {
       if (willDelete) {
         props.deleteCheq(id);
-        swal("Poof! Your imaginary file has been deleted!", {
-          icon: "success",
-        });
         setChange(false)
       } else {
-        swal("Your imaginary file is safe!");
+        swal("Cheque salvado!");
       }
     });
   };
@@ -109,6 +105,11 @@ function NewCheq(props: CheqOwnProps) {
   }
 
   const handleSubmit = (e: any) => {
+
+    const momentEmision = moment(input.ingreso);
+    const momentDiferido= moment(input.diferido);
+
+    if(momentEmision.isAfter(momentDiferido)) return swal("La fecha de diferido no puede ser  a la fecha de ingreso")
     if (
       input.cliente !== "" &&
       input.banco !== "" &&
@@ -142,7 +143,7 @@ function NewCheq(props: CheqOwnProps) {
   //funciones filtrado
 
   const handleSelectFilter = (e: any) => {
-    console.log('ASI LLEGA EL EVENTO FILTRADO: ',e.target.value)
+  //  console.log('ASI LLEGA EL EVENTO FILTRADO: ',e.target.value)
     setFilter(e.target.value);
   }
 

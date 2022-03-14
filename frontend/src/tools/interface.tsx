@@ -31,11 +31,12 @@ export interface Cheq{
 
 export interface Event{
     title: string,
-    start: any,
-    end: any,
+    start: Date,
+    end: Date,
     notes: string,
     type: string[],
-    _id:string
+    _id:string,
+    allDay: boolean
 }
 
 //DISPATCH
