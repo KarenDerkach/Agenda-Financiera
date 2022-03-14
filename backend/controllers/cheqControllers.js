@@ -1,9 +1,12 @@
 const CheqModel = require('../models/cheq-models')
 
+
 //emision de cheque
 const addCheq = async(req,res) =>{
     const {cliente, banco, numero, status, diferido,type, pago,ingreso, importe, observacion} = req.body
-   try{ 
+    
+    try{
+    
     if(cliente && banco && numero && type &&diferido && importe){
         const newCheq = new CheqModel({
             cliente,
