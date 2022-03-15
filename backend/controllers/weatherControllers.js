@@ -23,6 +23,7 @@ const dataAPI = async (req, res) => {
                     img: dataCity.weather[0].icon,
                     id: dataCity.id,
                     wind: dataCity.wind.speed,
+                    humidity: dataCity.main.humidity,
                     temp: dataCity.main.temp,
                     name: dataCity.name,
                     weather: dataCity.weather[0].main,

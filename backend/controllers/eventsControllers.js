@@ -3,7 +3,10 @@ const EventModel = require('../models/event-models')
 const getEvents = async (req, res) => {
     try {
         const events = await EventModel.find()
-        res.status(200).send(events)
+        events? 
+        res.status(200).send(events) 
+        :
+        res.status(404).send({message: 'No events found'})
     } catch (error) {
         res.status(500).json({
             message: 'Error al obtener eventos',
@@ -13,14 +16,15 @@ const getEvents = async (req, res) => {
 }
 
 const createEvent = async (req, res) => {
+    const {
+        title,
+        start,
+        end,
+        notes,
+        type
+    } = req.body
     try {
-        const {
-            title,
-            start,
-            end,
-            notes,
-            type
-        } = req.body
+        if(title && start && end && type){
         const event = new EventModel({
             title,
             start,
@@ -33,6 +37,11 @@ const createEvent = async (req, res) => {
             message: 'Evento creado',
             event
         })
+    }else{
+        res.status(400).json({
+            message: 'Faltan datos'
+        })
+    }
     } catch (error) {
         res.status(500).json({
             message: 'Error al crear evento',
@@ -42,10 +51,10 @@ const createEvent = async (req, res) => {
 }
 
 const deleteEvent = async (req, res) => {
+    const { id } = req.params
+
     try {
-        const {
-            id
-        } = req.params
+        
         await EventModel.findByIdAndDelete(id)
         res.status(200).json({
             message: 'Evento eliminado'
