@@ -58,7 +58,7 @@ function CalendarScreen(props: DetailProps) {
   
   return (
       <div>
-          <h1>Calendario</h1>
+          <h1 className="title-calendar">Calendario</h1>
           <div className="container-view">
       <div className='section-btn'>
 

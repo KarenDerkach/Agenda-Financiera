@@ -1,5 +1,10 @@
 
+.title-calendar{
+    font-family: 'Anton', sans-serif;
+    font-size: 3rem;
+    margin-top: 5vh;
 
+}
 .new-event-btn{
     display: flex;
     flex-direction: row;

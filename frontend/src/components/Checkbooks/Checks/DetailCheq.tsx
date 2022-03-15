@@ -14,10 +14,10 @@ interface DetailProps {
   }
 
  function DetailCheq(props: DetailProps) {
-
+    const [change, setChange] = React.useState(false);
     useEffect(() => {
         props.getCheq();
-    } , [props]);
+    } , [props, change]);
 
     const navigate = useNavigate()
     const { id } = useParams();
@@ -60,9 +60,12 @@ interface DetailProps {
     const handleSubmitEdit = (id:string,e: any) => {
       const momentPago_Cobro = moment(input.pago)
     const momentDiferido= moment(input.diferido);
-if(momentPago_Cobro.isAfter(momentDiferido)) return swal("Error", "La fecha de pago no puede ser anterior a la fecha de diferido", "error")
-      e.preventDefault()
+if(momentPago_Cobro.isBefore(momentDiferido)) return swal("Error", "La fecha de pago no puede ser anterior a la fecha de diferido", "error")
+if(input.status === ["Pagado"] && input.pago === undefined) return swal("Error", "La fecha de pago no puede ser vacia", "error")
+if(input.status === ["Cobrado"] && input.pago === undefined) return swal("Error", "La fecha de cobro no puede ser vacia", "error")
+e.preventDefault()
       props.updateCheq(id, input)
+      setChange(!change)
       navigate('/cheques')
     }
 
@@ -140,7 +143,7 @@ if(momentPago_Cobro.isAfter(momentDiferido)) return swal("Error", "La fecha de p
               <h5 className="modal-title">Editar</h5>
               <button
                 type="button"
-                className="close"
+                className="btn btn-danger"
                 data-dismiss="modal"
                 aria-label="Close"
               >
@@ -264,17 +267,18 @@ if(momentPago_Cobro.isAfter(momentDiferido)) return swal("Error", "La fecha de p
               <button
                 type="button"
                 className="btn btn-primary"
+                
                 onClick={(e)=>handleSubmitEdit(cheq._id, e)}
             
               >
-                Save changes
+                Guardar 
               </button>
               <button
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
               >
-                Close
+                Cerrar
               </button>
             </div>
           </div>

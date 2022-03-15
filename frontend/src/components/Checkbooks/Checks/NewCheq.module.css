@@ -1,8 +1,4 @@
 
-
-
-/*MODALLL*/
-
 .ReactModalPortal > div{
     opacity: 0;
 }
@@ -33,7 +29,7 @@
 }
 
 .modal {
-    background-color: #fff;
+    background: white;
     border-radius: 5px;
     color: rgb(51, 51, 51);
     display: inline;
@@ -45,22 +41,3 @@
 }
 
 /*FIN STYLE MODAL*/
-
-.form_group{
-    display: flex;
-    flex-direction: column;
-}
-.modal_title{
-    display: flex;
-    width: 100%;
-}
-
-.form_select{
-    width: 100%;
-}
-
-.form_input{
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #ccc;
-}

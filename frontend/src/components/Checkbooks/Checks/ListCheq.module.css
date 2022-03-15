@@ -1,5 +1,4 @@
-
-.seccion-menu{
+.seccion_menu{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -12,8 +11,7 @@
     border-radius: 0px;
 }
 
-
-.filter-cheq-btn{
+.filter_cheq_btn{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -23,7 +21,8 @@
     padding: 20px;
     /* border: 2px solid #004ad4; */
 }
-.title-filter{
+
+.title_filter{
     font-size: 20px;
     font-weight: bold;
  
@@ -32,7 +31,7 @@
     height: 100%;
 }
 
-.select-option{
+.select_option{
     display: flex;
     flex-direction: row;
     margin: 20px;
@@ -41,26 +40,38 @@
     border-radius: 5px;
  
 }
-.seccion-btn-filter{
+
+.seccion_btn_filter{
     display: flex;
     flex-direction: row;
     
 }
+
 .btn-outline-warning, .btn-outline-success{
     margin: 10px;
 }
 
-.container-actions{
+.container_actions{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     
 }
+
+
 .view{
     color: rgb(4, 0, 255);
     size: 50px;
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.trash{
+    color: red;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
 }

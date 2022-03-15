@@ -115,16 +115,19 @@ const initEvent: Event = {
         overlayClassName={style.overlay}
         className={style.modal}
               >
-          <div className={style.modal_container}>
-        <div className='modal-header'>
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+        
           <h5 className={style.modal_title}>Nuevo evento</h5>
           <button
             type="button"
-            className={style.modal_close}
+            className="btn btn-danger"
             onClick={props.closeModal}
           >
             <span aria-hidden="true">&times;</span>
           </button>
+      
         </div>
         <div className='modal-body'>
           <form onSubmit={(e) =>handleSubmit(e)}>
@@ -199,7 +202,9 @@ const initEvent: Event = {
             Cerrar
           </button>
         </div>
+          </div>
         </div>
+       
     </Modal>
   )
 }

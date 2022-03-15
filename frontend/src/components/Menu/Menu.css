@@ -1,10 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .bkg-main{
     background-image: url('../../img/bkg-home.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    scroll-behavior: smooth;
+    scroll-behavior: behavior;
     height: 100vh;
     width: 100%;
     
+}
+
+.menu-container{
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.menu-title{
+    font-family: 'Anton', sans-serif;
+    font-size: 3rem;
+    margin-top: 20vh;
+}
+
+.sub-title-menu{
+    text-decoration: underline solid rgb(68, 68, 68);
+    font-size: 1.5rem;
+    margin-top: 5vh;
+}
+
+.list-items{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5vh;
+}
+
+.item-menu{
+    list-style-type: none;
+    font-size: 1rem;
+    margin: 20px
+}
+
+.icon-check{
+    font-size: 2rem;
+    color: rgb(103, 228, 30);
 }
