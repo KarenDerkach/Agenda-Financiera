@@ -1,8 +1,9 @@
 import React from 'react'
 import './CardCity.css'
+import DetailCity from './DetailCity';
 
 interface CardCityProps {
-  key : number;
+  id: number;
   name: string;
   weather: string;
   min: number;
@@ -11,8 +12,24 @@ interface CardCityProps {
   onClose: () => void;
 }
 
-export default function CardCity({name, weather, min, max, img, onClose}: CardCityProps) {
+export default function CardCity({id,name, weather, min, max, img, onClose}: CardCityProps) {
+
+    /*CONFIG MODAL*/
+
+    const [modalIsOpen, setIsOpen] = React.useState(false);
+
+    function openModal() {
+      setIsOpen(true);
+    }
+  
+  
+    function closeModal() {
+      setIsOpen(false);
+    }
+  
+    /////////////////////////////////////////
   return (
+
     <div className="card">
       <button  className='btnClose' onClick={onClose}>X</button>
       <h3>{name}</h3>
@@ -27,7 +44,13 @@ export default function CardCity({name, weather, min, max, img, onClose}: CardCi
               <p>Max</p>
               <p>{max}°</p>
             </div>
-        </div>    
+        </div> 
+        <div>
+      
+        <button className='btn-info'onClick={openModal} >Más Información</button>
+        
+        {modalIsOpen ? <DetailCity params={id} modal={modalIsOpen} openModal={openModal} closeModal={closeModal}/> : null}
+        </div> 
     </div>
   )
 }

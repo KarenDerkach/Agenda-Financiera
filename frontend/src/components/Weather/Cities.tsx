@@ -16,14 +16,15 @@ interface CityProps {
  function Cities(props : CityProps) {
 
    const [change, setChange] = React.useState(false);
-  useEffect(() => {
+  
+   useEffect(() => {
      props.allCity()
 
 }, [props,change]);
     
     const handleDeleteCity = (id:number) => {
       props.deleteCity(id)
-      setChange(!change)
+      setChange(true)
     }
 
    
@@ -38,15 +39,19 @@ interface CityProps {
       {
       props.allCities.length > 0 ?
        props.allCities.map((city: City) => { 
-         return( <CardCity
-          key={city.id}
-        name ={city.name}
-        weather= {city.weather}
-          min={city.min}
-          max={city.max}
-          img={city.img}
-          onClose = {() => handleDeleteCity(city.id)}
-        /> )
+      
+          return( <CardCity
+            key={city.id}
+            id={city.id}
+          name ={city.name}
+          weather= {city.weather}
+            min={city.min}
+            max={city.max}
+            img={city.img}
+            onClose = {() => handleDeleteCity(city.id)}
+          /> )
+         
+        
           } )
           : <img src={gif} alt='icono clima'className='weather-gif'/>
        }

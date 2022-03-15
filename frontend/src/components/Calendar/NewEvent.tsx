@@ -5,8 +5,8 @@ import moment from 'moment';
 import swal from 'sweetalert';
 import { StoreState, Event } from "../../tools/interface";
 import {createEvent,  getAllEvents} from "../../redux/actions/Calendar/events"
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+import DateTimePicker from 'react-datetime-picker';
+// import "react-datepicker/dist/react-datepicker.css";
 import style from './NewEvent.module.css'
 
 interface EventProps {
@@ -40,38 +40,38 @@ Modal.setAppElement('#root');
 
 /* Fin config modal */
 
-
+let now = moment().minutes(0).seconds(0).add(1, 'hours');
+let nowPlusOne = now.clone().add(1, 'hours');
 
 const initEvent: Event = {
-	title: '',
+  title: '',
 	notes: '',
-	start: new Date(),
-	end: new Date(),
+	start: now.toDate(),
+	end: nowPlusOne.toDate(),
   type: [],
-  _id: '',
-  allDay: true,
+  _id: ''
 };
 
 
- function NewEvent(props: EventProps) {
-
+function NewEvent(props: EventProps) {
+  
     const [formValues, setformValues] = useState(initEvent);
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(now.toDate());
+    const [endDate, setEndDate] = useState(nowPlusOne.toDate());
 
     const typeEvent = ["Cumpleaños","Reunion","Trabajo","Tareas", "Otros"]
   
   /**FUNCTIONS */
-    const handleChangeStart =( selected: Date)=>{
-        setStartDate(selected);
-        setformValues({...formValues, start: selected})
+    const handleChangeStart =( e: any)=>{
+        setStartDate(e);
+        setformValues({...formValues, start: e})
 
     }
 
-    const handleChangeEnd =( selected: Date)=>{
-        setEndDate(selected);
-        setformValues({...formValues, end: selected})
+    const handleChangeEnd =( e: any)=>{
+        setEndDate(e);
+        setformValues({...formValues, end: e})
 
     }
 
@@ -82,6 +82,7 @@ const initEvent: Event = {
       });
     }
   
+    //title, notas
     const handleChange = (e:any) => {
           setformValues({
               ...formValues,
@@ -94,7 +95,7 @@ const initEvent: Event = {
       const momentStart = moment(formValues.start);
       const momentEnd = moment(formValues.end);
   
-      if(momentStart.isAfter(momentEnd)) return swal("Error", "La fecha de inicio no puede ser mayor a la fecha de fin", "error");
+      if(momentStart.isAfter(momentEnd)) return swal("Error", "La fecha de inicio no puede ser anterior a la fecha de fin", "error");
       if(formValues.title !== '' && formValues.start  && formValues.end ) {
           e.preventDefault();
           props.createEvent(formValues);
@@ -156,22 +157,22 @@ const initEvent: Event = {
             </div>
             <div className={style.form_group}>
               <label className={style.modal_title} >Fecha Inicio</label>
-              <DatePicker
+              <DateTimePicker
               className={style.form_input}
-                selected={startDate}
-                onChange={(date: Date) => handleChangeStart(date)}
+                value={startDate}
+                onChange={ handleChangeStart}
               />
             </div>
             <div className={style.form_group}>
               <label className={style.modal_title}>
                 Fecha de finalizacion
               </label>
-              <DatePicker
+              <DateTimePicker
                 
                 className={style.form_input}
-               
-                selected={endDate}
-                onChange={(date: Date) => handleChangeEnd(date)}
+                value={endDate}
+                minDate={startDate}
+                onChange={handleChangeEnd}
               />
             </div>
             <div className={style.form_group}>

@@ -4,13 +4,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
+    
 
 }
 
 .box{
-    position: relative;
+    position: absolute;
   width: 30rem;
   border-radius: .7rem;
+ 
 }
 
 .inputCity, .btnCity{

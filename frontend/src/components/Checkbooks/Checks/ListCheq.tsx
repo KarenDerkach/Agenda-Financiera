@@ -3,7 +3,6 @@ import React,
 from "react";
 
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import { StoreState, Cheq } from "../../../tools/interface";
 import {
@@ -17,6 +16,7 @@ import style from './ListCheq.module.css'
 /*ICONS */
 import {FaTrash} from 'react-icons/fa'
 import {GrView} from 'react-icons/gr'
+import DetailCheq from "./DetailCheq";
 
 
 interface CheqOwnProps {
@@ -103,15 +103,24 @@ function ListCheq(props: CheqOwnProps) {
 
    /*CONFIG MODAL*/
 
-   const [modalIsOpen, setIsOpen] = React.useState(false);
+   const [modalNewCheq, setModalNewCheq] = React.useState(false);
+    const [modalDetailCheq, setModalDetailCheq] = React.useState(false);
 
-   function openModal() {
-     setIsOpen(true);
+   function openModalNew() {
+    setModalNewCheq(true);
+
+   }
+   function openModalDetail() {
+    setModalDetailCheq(true);
+    
    }
  
  
-   function closeModal() {
-     setIsOpen(false);
+   function closeModalNew() {
+    setModalNewCheq(false);
+   }
+   function closeModalDetail() {
+    setModalDetailCheq(false);
    }
  
    /////////////////////////////////////////
@@ -124,11 +133,11 @@ function ListCheq(props: CheqOwnProps) {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={openModal}
+            onClick={openModalNew}
           >
             NUEVO REGISTRO
           </button>
-          {modalIsOpen ? <NewCheq isChange={change} modal={modalIsOpen} openModal={openModal} closeModal={closeModal}/> : null}
+          {modalNewCheq ? <NewCheq isChange={change} modal={modalNewCheq} openModal={openModalNew} closeModal={closeModalNew}/> : null}
         </div>
 
         
@@ -197,15 +206,14 @@ function ListCheq(props: CheqOwnProps) {
                         <th scope="row">{cheq.status}</th>
                         <td className={style.container_actions}>
          
-                          <Link to={`/cheq/${cheq._id}`}>   
+                          
                         <th scope="row">
                            <button type="button"
             className={style.view}
-            data-toggle="modal"
-                data-target="#modal2"><GrView/></button>
+                    onClick={openModalDetail}
+            ><GrView/></button>
                           </th>
-                          
-                          </Link>
+                          {modalDetailCheq ? <DetailCheq id={cheq._id} isChange={change} modal={modalDetailCheq} openModal={openModalDetail} closeModal={closeModalDetail}/> : null}
 
                           <th scope="row">
                             <button  className={style.trash} onClick={() => handleDelete(cheq._id)}>

@@ -54,3 +54,15 @@ margin-top: -3vh;
     padding: 0 5%;
 }
 
+.btn-info{
+  background-color: transparent;
+  border: none;
+  border-bottom: black solid 1px;
+  margin-top: 20px;
+}
+
+.btn-info:hover{
+  background-color: transparent;
+  
+  color: white;
+}

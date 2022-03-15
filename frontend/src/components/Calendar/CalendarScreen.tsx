@@ -11,7 +11,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Calendar, dateFnsLocalizer} from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import{messages}  from './messageCalendar'
+import{messages}  from '../../tools/messageCalendar'
 import swal from 'sweetalert';
 import './CalendarScreen.css';
 import NewEvent from "./NewEvent";
@@ -26,6 +26,8 @@ const localizer = dateFnsLocalizer({
   getDay,
   locales,
 });
+
+
 interface DetailProps {
   stateEvent: Event[];
   getAllEvents():any;
@@ -84,12 +86,9 @@ function CalendarScreen(props: DetailProps) {
           <Calendar 
           localizer={localizer}
            events={props.stateEvent} 
-          //  resources={props.stateEvent}
-          //  resourceIdAccessor={(event: Event) => event.title}
            startAccessor="start" 
            endAccessor="end"
            messages={messages}
-           defaultView="month"
            defaultDate={new Date()}
             onSelectEvent={(event) => swal( event.type[0], event.title )}
           style={{ height: 500, margin: "50px" }} 

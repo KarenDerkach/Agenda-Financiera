@@ -2,6 +2,7 @@ import api from "../../../service/api"
 import { Dispatch } from 'redux';
 import { actionsTypes } from '../types'
 import {AllCityDispatch, City, CityDispatch, DeleteDispatch} from '../../../tools/interface';
+import swal from "sweetalert";
 
 
 
@@ -11,6 +12,9 @@ export function searchCity(city:string){
          await api.get<City[]>(`/weather/${city}`)
         .then((dataAPI) : void =>{
             dispatch<CityDispatch>({type: actionsTypes.searchCity , payload: dataAPI.data})
+        })
+        .catch((err) =>{
+            swal("UPS!", "No se encontro la ciudad", "warning");
         })
        
     }

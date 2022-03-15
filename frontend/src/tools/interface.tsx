@@ -12,7 +12,8 @@ export interface City{
     weather: string,
     clouds: number,
     latitud: number,
-    longitud: number
+    longitud: number,
+    cod: string
 }
 
 export interface Cheq{
@@ -35,8 +36,8 @@ export interface Event{
     end: Date,
     notes: string,
     type: string[],
-    _id:string,
-    allDay: boolean
+    _id:string
+
 }
 
 //DISPATCH

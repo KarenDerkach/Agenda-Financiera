@@ -28,15 +28,11 @@ useEffect(() => {
   }
 
   const handleSubmit = (e: any) => {
-    if(stateCity){
+    if(!stateCity) return swal("No se ha encontrado la ciudad", "intenta con una nueva", "warning");
     e.preventDefault();
     props.searchCity(stateCity);
     setChange(!change);
     setstateCity("");
-    }else{
-      swal("No se ha encontrado la ciudad", "intenta con una nueva", "warning");
-
-    }
   }
 
   return (
