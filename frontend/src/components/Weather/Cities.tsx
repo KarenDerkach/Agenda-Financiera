@@ -4,7 +4,7 @@ import { StoreState, City} from '../../tools/interface';
 import { allCity, deleteCity } from '../../redux/actions/Weather/actions'
 import CardCity from './CardCity';
 import SearchBar from './SearchBar';
-import gif from '../../img/weather-gif.gif'
+import gif from '../../tools/img/weather-gif.gif'
 import './Cities.css';
 
 interface CityProps {
