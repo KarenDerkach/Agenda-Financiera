@@ -32,8 +32,8 @@ interface EditProps {
 		transform: 'translate(-50%, -50%)',
         backgroundColor: '#f8f9fa',
         border: 'none',
-        with: '1000px',
-        height: '200px',
+        with: '50vw',
+        height: '80vh',
      
 
 	},
@@ -114,12 +114,12 @@ e.preventDefault()
         onRequestClose={props.closeModal}
         style={customStyles}
         overlayClassName={style.overlay}
-        className={style.modal}
+        className={style.modaal}
               >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Editar</h5>
+        
+          <div className={style.e_content}>
+            <div className={style.e_header}>
+              <h5 className={style.e_title}>Editar</h5>
               <button
                 type="button"
                 className="btn btn-danger"
@@ -128,10 +128,10 @@ e.preventDefault()
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div className="modal-body">
+            <div className={style.e_body}>
               <form onSubmit={()=>handleSubmitEdit}>
 
-              <div className="form-group">
+              <div className={style.e_fromGroupFilter}>
                   <label>Tipo</label>
                   <select onClick={(e)=>handleSelectType(e)}>
                     {
@@ -142,10 +142,8 @@ e.preventDefault()
                       })
                     }
                   </select>
-                  <span>({cheq.type})</span>
-                </div>
-
-                <div className="form-group">
+                  <span className={style.e_subtext}>({cheq.type})</span>
+                
                   <label>Estado</label>
                   <select onClick={(e)=>handleSelectStatus(e)}>
                     {
@@ -156,87 +154,89 @@ e.preventDefault()
                       })
                     }
                   </select>
-                    <span>({cheq.status[0]})</span>
-                </div>
+                    <span className={style.e_subtext}>({cheq.status[0]})</span>
+                    </div>
 
-                <div className="form-group">
-                  <label htmlFor="exampleInputEmail1">Cliente</label>
+                <div className={style.e_fromGroup}>
+                  <label className={style.e_label} >Cliente</label>
                   <input
                     type="text"
-                    className="form-control"
+                    className={style.e_formControl}
                     placeholder={cheq.cliente}
                     name="cliente"
                     value={input.cliente}
                     onChange={(e) => handleChangeInput(e)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="exampleInputEmail1">Banco</label>
+                <div className={style.e_fromGroup}>
+                  <label className={style.e_label} >Banco</label>
                   <input
                     type="text"
-                    className="form-control"
+                    className={style.e_formControl}
                     placeholder={cheq.banco}
                     name="banco"
                     value={input.banco}
                     onChange={(e) => handleChangeInput(e)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="exampleInputPassword1">
+                <div className={style.e_fromGroup}>
+                  <label className={style.e_label}>
                     Numero de cheque
                   </label>
                   <input
                     type="text"
-                    className="form-control"
+                    className={style.e_formControl}
                     placeholder={cheq.numero}
                     name="numero"
                     value={input.numero}
                     onChange={(e) => handleChangeInput(e)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="exampleInputPassword1">Importe</label>
+                <div className={style.e_fromGroup}>
+                  <label className={style.e_label} >Importe</label>
                   <input
                     type="number"
-                    className="form-control"
+                    className={style.e_formControl}
                     placeholder={cheq.importe}
                     name="importe"
                     value={input.importe}
                     onChange={(e) => handleChangeInput(e)}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="exampleInputPassword1">
+                <section className={style.e_fromGroupDate}>
+                <div className={style.e_contDate}>
+                  <label className={style.e_label} >
                     Fecha de pago/cobro
                   </label>
                   <input
                     type="date"
-                    className="form-control"
+                    className={style.e_formControl}
                     placeholder={cheq.pago}
                     name="pago"
                     value={input.pago}
                     onChange={(e) => handleChangeInput(e)}
                   />
-                  <p>({cheq.pago === '' ? '-' : props.configDate(cheq.pago)})</p>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="exampleInputPassword1">
+                  <p className={style.e_subtext}>({cheq.pago === '' ? '-' : props.configDate(cheq.pago)})</p>
+                  </div>
+                  <div className={style.e_contDate}>
+                  <label className={style.e_label} >
                     Fecha de diferido
                   </label>
                   <input
                     type="date"
-                    className="form-control"
+                    className={style.e_formControl}
                     placeholder={cheq.diferido}
                     name="diferido"
                     value={input.diferido}
                     onChange={(e) => handleChangeInput(e)}
                   />
-                    <p>({props.configDate(cheq.diferido)})</p>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="exampleInputPassword1">Observaciones</label>
+                    <p className={style.e_subtext}>({props.configDate(cheq.diferido)})</p>
+                    </div>
+                </section>
+                <div className={style.e_fromGroup}>
+                  <label className={style.e_label} >Observaciones</label>
                   <textarea
-                    className="form-control"
+                     className={style.e_formControl}
                     placeholder={cheq.observacion}
                     name="observacion"
                     value={input.observacion}
@@ -264,7 +264,7 @@ e.preventDefault()
               </button>
             </div>
           </div>
-        </div>
+        
       </Modal>
 
     </div>

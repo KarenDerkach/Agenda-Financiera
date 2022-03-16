@@ -73,24 +73,24 @@ function Calculator() {
             </div>
             <button className='span-two' onClick={handleClickClear}> AC</button>
             <button className ='span-two'onClick={handleClickDelete}>DEL</button>
-            <button onClick={() => handleClickOperation('%')}>%</button>
-            <button onClick={()=>{handleClickOperation('/')}}>/</button>
-            <button onClick={()=>{handleClickOperation('^')}}>^</button>
-            <button onClick={()=>{handleClickOperation('√')}}>/</button>
-            <button onClick={()=>handleClickNumber('7')}>7</button>
-            <button onClick={()=>handleClickNumber('8')}>8</button>
-            <button onClick={()=>handleClickNumber('9')}>9</button>
-            <button onClick={()=>{handleClickOperation('*')}}>*</button>
-            <button onClick={()=>handleClickNumber('4')}>4</button>
-            <button onClick={()=>handleClickNumber('5')}>5</button>
-            <button onClick={()=>handleClickNumber('6')}>6</button>
-            <button onClick={()=>{handleClickOperation('+')}}>+</button>
-            <button onClick={()=>handleClickNumber('1')}>1</button>
-            <button onClick={()=>handleClickNumber('2')}>2</button>
-            <button onClick={()=>handleClickNumber('3')}>3</button>
-            <button onClick={()=>{handleClickOperation('-')}}>-</button>
-            <button onClick={()=>{handleClickNumber('.')}}>.</button>
-            <button onClick={()=>handleClickNumber('0')}>0</button>
+            <button className='btn-op'onClick={() => handleClickOperation('%')}>%</button>
+            <button  className='btn-op'onClick={()=>{handleClickOperation('/')}}>/</button>
+            <button  className='btn-op'onClick={()=>{handleClickOperation('^')}}>^</button>
+            <button  className='btn-op'onClick={()=>{handleClickOperation('√')}}>/</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('7')}>7</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('8')}>8</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('9')}>9</button>
+            <button  className='btn-op'onClick={()=>{handleClickOperation('*')}}>*</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('4')}>4</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('5')}>5</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('6')}>6</button>
+            <button  className='btn-op'onClick={()=>{handleClickOperation('+')}}>+</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('1')}>1</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('2')}>2</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('3')}>3</button>
+            <button  className='btn-op'onClick={()=>{handleClickOperation('-')}}>-</button>
+            <button className='btn-num'onClick={()=>{handleClickNumber('.')}}>.</button>
+            <button className='btn-num'onClick={()=>handleClickNumber('0')}>0</button>
             <button className='span-two' onClick={handleClickResult}>=</button>
         </div>
         

@@ -3,7 +3,9 @@
 }
 
 .app-header {
-    background-color: #282c34;
+    background: #4AC29A; 
+background: -webkit-linear-gradient(to right, #BDFFF3, #4AC29A);  
+background: linear-gradient(to right, #BDFFF3, #4AC29A); 
     height: 100vh;
     width: 100%;
     display: flex;
@@ -39,26 +41,46 @@
  margin: 3px;
  font-size: 1rem;
  font-weight: bold;
- color:beige;
+
  border: 1px solid rgb(245, 223, 220);
  outline: none;
-background-color: #75bdb7;
+
+}
+.btn-num{
+    background-color: #BACC81;
+    color:beige;
+}
+.btn-num:hover{
+    background-color: #CDD193;
 }
 
-.app-container > button:hover{
-    background-color: #60b6af;
-}
 
 .span-two{
     grid-column: span 2;
+    background-color: #013A20;
+    color:white
 
+}
+
+.span-two:hover{
+    background-color: #02502d;
+   
+}
+
+.btn-op{
+    background-color: #478C5C;
+    color: white;
+}
+
+.btn-op:hover{
+    background-color: #326642;
 }
 
 .app-input{
     /*que ocupe una columna entera*/
     grid-column: 1/-1;
     margin-bottom: .5rem;
-    background-color: antiquewhite;
+    background-color: #DBE8D8;
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
