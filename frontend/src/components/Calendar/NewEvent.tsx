@@ -6,7 +6,7 @@ import swal from 'sweetalert';
 import { StoreState, Event } from "../../tools/interface";
 import {createEvent,  getAllEvents} from "../../redux/actions/Calendar/events"
 import DateTimePicker from 'react-datetime-picker';
-// import "react-datepicker/dist/react-datepicker.css";
+ import "react-datepicker/dist/react-datepicker.css";
 import style from './NewEvent.module.css'
 
 interface EventProps {
@@ -29,8 +29,8 @@ const customStyles = {
 		transform: 'translate(-50%, -50%)',
         backgroundColor: '#f8f9fa',
         border: 'none',
-        with: '1000px',
-        height: '500px',
+        with: '100vw',
+        height: '100vh',
      
 
 	},
@@ -113,11 +113,11 @@ function NewEvent(props: EventProps) {
         onRequestClose={props.closeModal}
         style={customStyles}
         contentLabel="Example Modal"
-        overlayClassName={style.overlay}
-        className={style.modal}
+        overlayClassName='overlay'
+        className='modal'
               >
-        <div className="modal-dialog">
-          <div className="modal-content">
+        
+         
             <div className="modal-header">
         
           <h5 className={style.modal_title}>Nuevo evento</h5>
@@ -130,24 +130,24 @@ function NewEvent(props: EventProps) {
           </button>
       
         </div>
-        <div className='modal-body'>
-          <form onSubmit={(e) =>handleSubmit(e)}>
-          <div className={style.form_group}>
-              <label className={style.modal_title}>Tipo</label>
-              <select className={style.form_select} onClick={(e)=>handleSelectType(e)}>
+        <div className={style.container}>
+          <form className={style.container_form} onSubmit={(e) =>handleSubmit(e)}>
+          <div className="form-floating">
+              <select className='form-select' onClick={(e)=>handleSelectType(e)}>
                 {
                   typeEvent.map((type: string) => {
                     return (
                       <option key={type} value={type}>{type}</option>
-                    )
-                  })
-                }
+                      )
+                    })
+                  }
               </select>
+                  <label htmlFor="floatingSelect">Tipo</label>
             </div>
-            <div className={style.form_group}>
+            <div className="form-group">
               <label className={style.modal_title} >Titulo</label>
               <input
-                className={style.form_input}
+                className="form-control"
                 type="text"
                 placeholder="Ingrese nombre del evento ..."
                 name="title"
@@ -155,30 +155,30 @@ function NewEvent(props: EventProps) {
                 onChange={(e) => handleChange(e)}
               />
             </div>
-            <div className={style.form_group}>
+            <div className="form-group">
               <label className={style.modal_title} >Fecha Inicio</label>
               <DateTimePicker
-              className={style.form_input}
+              className="form-control"
                 value={startDate}
                 onChange={ handleChangeStart}
               />
             </div>
-            <div className={style.form_group}>
+            <div className="form-group">
               <label className={style.modal_title}>
                 Fecha de finalizacion
               </label>
               <DateTimePicker
                 
-                className={style.form_input}
+                className="form-control"
                 value={endDate}
                 minDate={startDate}
                 onChange={handleChangeEnd}
               />
             </div>
-            <div className={style.form_group}>
+            <div  className="form-group">
               <label className={style.modal_title}>Notas</label>
               <textarea
-              className={style.form_textarea}
+              className="form-control"
                 placeholder="datos adicionales ..."
                 name="notes"
                 value={formValues.notes}
@@ -186,7 +186,7 @@ function NewEvent(props: EventProps) {
               />
             </div>
           </form>
-        </div>
+        
         <div className="modal-footer">
           <button
             type="button"
@@ -203,8 +203,8 @@ function NewEvent(props: EventProps) {
             Cerrar
           </button>
         </div>
-          </div>
         </div>
+       
        
     </Modal>
   )

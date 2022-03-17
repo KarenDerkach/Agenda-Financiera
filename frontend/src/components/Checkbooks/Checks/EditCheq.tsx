@@ -32,8 +32,8 @@ interface EditProps {
 		transform: 'translate(-50%, -50%)',
         backgroundColor: '#f8f9fa',
         border: 'none',
-        with: '50vw',
-        height: '80vh',
+        with: '100vw',
+        height: '100vh',
      
 
 	},
@@ -77,9 +77,9 @@ Modal.setAppElement('#root');
     const handleSubmitEdit = (id:string,e: any) => {
       const momentPago_Cobro = moment(input.pago)
     const momentDiferido= moment(input.diferido);
+    if(input.status === ["Pagado"] && !input.pago) return swal("Error", "La fecha de pago no puede ser vacia", "error")
+    if(input.status === ["Cobrado"] && !input.pago ) return swal("Error", "La fecha de cobro no puede ser vacia", "error")
 if(momentPago_Cobro.isBefore(momentDiferido)) return swal("Error", "La fecha de pago no puede ser anterior a la fecha de diferido", "error")
-if(input.status === ["Pagado"] && input.pago === undefined) return swal("Error", "La fecha de pago no puede ser vacia", "error")
-if(input.status === ["Cobrado"] && input.pago === undefined) return swal("Error", "La fecha de cobro no puede ser vacia", "error")
 e.preventDefault()
       props.updateCheq(id, input)
       setChange(!change)
@@ -113,13 +113,15 @@ e.preventDefault()
         isOpen={props.modal}
         onRequestClose={props.closeModal}
         style={customStyles}
-        overlayClassName={style.overlay}
-        className={style.modaal}
+        overlayClassName='overlay'
+        className='modal'
               >
         
-          <div className={style.e_content}>
-            <div className={style.e_header}>
+        <div className="modal-content">
+        <div className="modal-header">
+         
               <h5 className={style.e_title}>Editar</h5>
+          
               <button
                 type="button"
                 className="btn btn-danger"
@@ -127,41 +129,48 @@ e.preventDefault()
               >
                 <span aria-hidden="true">&times;</span>
               </button>
+            
             </div>
-            <div className={style.e_body}>
-              <form onSubmit={()=>handleSubmitEdit}>
-
+          
+              <form className={style.e_body}onSubmit={()=>handleSubmitEdit}>
+              <section className={style.siteFilter}>
               <div className={style.e_fromGroupFilter}>
-                  <label>Tipo</label>
-                  <select onClick={(e)=>handleSelectType(e)}>
+              <div className="form-floating">
+                  <select className='form-select' onClick={(e)=>handleSelectType(e)}>
                     {
                       typeCheq.map((type: string) => {
                         return (
                           <option key={type} value={type}>{type}</option>
-                        )
-                      })
-                    }
+                          )
+                        })
+                      }
                   </select>
+                      <label htmlFor="floatingSelect" >Tipo</label>
+                  </div>
                   <span className={style.e_subtext}>({cheq.type})</span>
-                
-                  <label>Estado</label>
-                  <select onClick={(e)=>handleSelectStatus(e)}>
+                  </div>
+                  <div className={style.e_fromGroupFilter}>
+                  <div className="form-floating"> 
+                  <select className='form-select' onClick={(e)=>handleSelectStatus(e)}>
                     {
                       statusCheq.map((type: string) => {
                         return (
                           <option key={type} value={type}>{type}</option>
-                        )
-                      })
-                    }
+                          )
+                        })
+                      }
                   </select>
+                      <label htmlFor="floatingSelect">Estado</label>
+                  </div>
                     <span className={style.e_subtext}>({cheq.status[0]})</span>
                     </div>
+                    </section>
 
                 <div className={style.e_fromGroup}>
                   <label className={style.e_label} >Cliente</label>
                   <input
                     type="text"
-                    className={style.e_formControl}
+                    className="form-control"
                     placeholder={cheq.cliente}
                     name="cliente"
                     value={input.cliente}
@@ -172,7 +181,7 @@ e.preventDefault()
                   <label className={style.e_label} >Banco</label>
                   <input
                     type="text"
-                    className={style.e_formControl}
+                    className="form-control"
                     placeholder={cheq.banco}
                     name="banco"
                     value={input.banco}
@@ -185,7 +194,7 @@ e.preventDefault()
                   </label>
                   <input
                     type="text"
-                    className={style.e_formControl}
+                    className="form-control"
                     placeholder={cheq.numero}
                     name="numero"
                     value={input.numero}
@@ -196,21 +205,21 @@ e.preventDefault()
                   <label className={style.e_label} >Importe</label>
                   <input
                     type="number"
-                    className={style.e_formControl}
+                    className="form-control"
                     placeholder={cheq.importe}
                     name="importe"
                     value={input.importe}
                     onChange={(e) => handleChangeInput(e)}
                   />
                 </div>
-                <section className={style.e_fromGroupDate}>
-                <div className={style.e_contDate}>
+          
+                  <div className={style.e_fromGroupFilter}>
                   <label className={style.e_label} >
                     Fecha de pago/cobro
                   </label>
                   <input
                     type="date"
-                    className={style.e_formControl}
+                    className="form-control"
                     placeholder={cheq.pago}
                     name="pago"
                     value={input.pago}
@@ -218,13 +227,14 @@ e.preventDefault()
                   />
                   <p className={style.e_subtext}>({cheq.pago === '' ? '-' : props.configDate(cheq.pago)})</p>
                   </div>
-                  <div className={style.e_contDate}>
+                  
+                  <div className={style.e_fromGroupFilter}>
                   <label className={style.e_label} >
                     Fecha de diferido
                   </label>
                   <input
                     type="date"
-                    className={style.e_formControl}
+                    className="form-control"
                     placeholder={cheq.diferido}
                     name="diferido"
                     value={input.diferido}
@@ -232,11 +242,12 @@ e.preventDefault()
                   />
                     <p className={style.e_subtext}>({props.configDate(cheq.diferido)})</p>
                     </div>
-                </section>
+                
+
                 <div className={style.e_fromGroup}>
                   <label className={style.e_label} >Observaciones</label>
                   <textarea
-                     className={style.e_formControl}
+                     className="form-control"
                     placeholder={cheq.observacion}
                     name="observacion"
                     value={input.observacion}
@@ -244,7 +255,7 @@ e.preventDefault()
                   />
                 </div>
               </form>
-            </div>
+           
             <div className="modal-footer">
               <button
                 type="button"
@@ -263,8 +274,8 @@ e.preventDefault()
                 Cerrar
               </button>
             </div>
-          </div>
-        
+       
+        </div>
       </Modal>
 
     </div>

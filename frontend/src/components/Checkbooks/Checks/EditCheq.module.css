@@ -1,55 +1,4 @@
 
-.ReactModalPortal > div{
-    opacity: 0;
-}
-
-.ReactModalPortal .ReactModal__Overlay {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    transition: opacity .2s ease-in-out;
-    z-index: 999;
-}
-
-.overlay {
-    background-color: rgba(0, 0, 0, 0.3);
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    position: fixed;
-}
-
-.ReactModalPortal .ReactModal__Overlay--after-open {
-    opacity: 1;
-}
-
-.ReactModalPortal .ReactModal__Overlay--before-close {
-    opacity: 0;
-}
-
-/* .modal {
-    background: white;
-    border-radius: 5px;
-    color: rgb(51, 51, 51);
-    display: inline;
-    max-height: 100vh;
-    max-width: 50vw;
-    outline: none;
-    padding: 10px;
-    overflow: hidden;
-} */
-
-/*FIN STYLE MODAL*/
-
-.e_header{
-    width:100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-
-}
 .e_title{
     font-size: 1.5rem;
     font-weight: bold;
@@ -60,16 +9,23 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 5vh;
+    padding: 20px;
+    
 
 }
-.e_fromGroupFilter{
+.siteFilter{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+}
+.e_fromGroupFilter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
 
 }
+
 
 .e_fromGroup{
     display: flex;
@@ -80,18 +36,12 @@
 
 .e_fromGroupDate{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    margin: 20px
-}
-
-.e_contDate{
-    display: flex;
-
-    justify-content: space-around;
-
     
 }
+
+
 
 .e_label{
     font-size: 1rem;
@@ -103,9 +53,11 @@
 .e_formControl{
     border: none;
     border-bottom: 1px solid #3f3f3f;
+    width: 20vw;
 }
 
 .e_subtext{
     font-style: italic;
     font-size: 0.8rem;
+ 
 }

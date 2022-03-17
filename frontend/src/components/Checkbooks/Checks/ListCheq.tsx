@@ -126,7 +126,7 @@ function ListCheq(props: CheqOwnProps) {
    /////////////////////////////////////////
   return (
     <>
-
+      <div className="fresh-table full-color-orange">
       <div className={style.container_view}>
         <div className={style.seccion_menu}>
         <div className={style.new_cheq_btn}>
@@ -235,6 +235,7 @@ function ListCheq(props: CheqOwnProps) {
           </table>
         </div>
       </div>  
+      </div>
     </>
   );
 }

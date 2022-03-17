@@ -24,6 +24,7 @@ export default function Navbar() {
                     <li className="nav-item">
                         <Link to='/calculator' className="nav-link" > Calculadora</Link>
                     </li>
+                
                     {/* <li className="nav-item">
                        <Link to='/notas' className="nav-link"> Notas</Link> 
                     </li> */}

@@ -30,8 +30,9 @@ interface DetailProps {
 		transform: 'translate(-50%, -50%)',
         backgroundColor: '#f8f9fa',
         border: 'none',
-        with: '1000px',
-        height: '500px',
+        with: '100vw',
+        height: '80vh',
+        
      
 
 	},
@@ -90,10 +91,9 @@ Modal.setAppElement('#root');
         isOpen={props.modal}
         onRequestClose={props.closeModal}
         style={customStyles}
-        overlayClassName={style.overlay}
-        className={style.modal}
+        overlayClassName='overlay'
+        className='modal'
               >
-        <div className="modal-dialog">
           <div className="modal-content">
                   <div className="modal-header">
               <h5 className="modal-title">Cheque Numero {cheq.numero}</h5>
@@ -129,7 +129,7 @@ Modal.setAppElement('#root');
               {isOpen ? <EditCheq configDate={configDate}id={cheq._id} modal={isOpen}  openModal={openModal} closeModal={closeModal}/> : null}
             </div>  
           </div>
-        </div>
+        
       </Modal>
 
     </div>

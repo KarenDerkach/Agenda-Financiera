@@ -15,8 +15,7 @@
   border-radius: .7rem;
  
 }
-
-.inputCity, .btnCity{
+ .btnCity{
     height: 3rem;
     font-family: 'Lato', sans-serif;
     border: 0;
@@ -24,7 +23,8 @@
     font-size: 1rem;
 }
 
-input {
+
+.inputCity {
     outline: 0; 
     width: 100%;
     background: #fff;
@@ -35,6 +35,11 @@ input {
     transition-property: width, border-radius; */
     z-index: 1;
     position: relative;
+    height: 3rem;
+    font-family: 'Lato', sans-serif;
+    border: 0;
+    color: #2f2f2f;
+    font-size: 1rem;
   }
 
 .btnCity{
@@ -54,7 +59,7 @@ input {
     margin-top: -10px;
 }
 
-input:not(:placeholder-shown) {
+.inputCity:not(:placeholder-shown) {
     border-radius: .7rem 0 0 .7rem;
     width: calc(100% - 7rem);
 

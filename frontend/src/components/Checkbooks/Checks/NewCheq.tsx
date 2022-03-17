@@ -12,7 +12,7 @@ import {
   getCheq,
 } from "../../../redux/actions/Cheqbooks/cheqActions";
 
-import style from './NewCheq.module.css'
+//import style from './NewCheq.module.css'
 
 
 interface CheqOwnProps {
@@ -37,8 +37,8 @@ interface CheqOwnProps {
 		transform: 'translate(-50%, -50%)',
         backgroundColor: '#f8f9fa',
         border: 'none',
-        with: '1000px',
-        height: '500px',
+        with: '100vw',
+        height: '100vh',
      
 
 	},
@@ -126,12 +126,12 @@ function NewCheq(props: CheqOwnProps) {
         onRequestClose={props.closeModal}
         style={customStyles}
         contentLabel="Example Modal"
-        overlayClassName={style.overlay}
-        className={style.modal}
+        overlayClassName='overlay'
+        className='modal'
               >
       
-        <div className="modal-dialog">
-          <div className="modal-content">
+      
+         
             <div className="modal-header">
               <h5 className="modal-title">Nuevo cheque</h5>
               <button
@@ -144,20 +144,21 @@ function NewCheq(props: CheqOwnProps) {
             </div>
             <div className="modal-body">
               <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                  <label>Tipo</label>
-                  <select onClick={(e)=>handleSelect(e)}>
+              <div className="form-floating">
+                  <select className='form-select' aria-label='Floating label select example'onClick={(e)=>handleSelect(e)}>
+                   
                     {
                       typeCheq.map((type: string) => {
                         return (
                           <option key={type} value={type}>{type}</option>
-                        )
+                          )
                       })
                     }
                   </select>
+                    <label htmlFor="floatingSelect">Tipo</label>
                 </div>
                 <div className="form-group">
-                  <label>Cliente</label>
+                  <label >Cliente</label>
                   <input
                     type="text"
                     className="form-control"
@@ -165,6 +166,7 @@ function NewCheq(props: CheqOwnProps) {
                     name="cliente"
                     value={input.cliente}
                     onChange={(e) => handleChangeInput(e)}
+                    
                   />
                 </div>
                 <div className="form-group">
@@ -232,6 +234,7 @@ function NewCheq(props: CheqOwnProps) {
                   <label >Observaciones</label>
                   <textarea
                     className="form-control"
+                  
                     placeholder="..."
                     name="observacion"
                     value={input.observacion}
@@ -249,8 +252,8 @@ function NewCheq(props: CheqOwnProps) {
                 Guardar
               </button>
             </div>
-          </div>
-        </div>
+         
+        
   
       </Modal>
     </>
