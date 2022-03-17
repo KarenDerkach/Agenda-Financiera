@@ -1,6 +1,7 @@
 import React from 'react'
 import './CardCity.css'
 import DetailCity from './DetailCity';
+import { motion } from "framer-motion"
 
 interface CardCityProps {
   id: number;
@@ -27,10 +28,15 @@ export default function CardCity({id,name, weather, min, max, img, onClose}: Car
       setIsOpen(false);
     }
   
+
     /////////////////////////////////////////
   return (
 
-    <div className="card">
+    <motion.div 
+    animate={{ scale: 1.2 }}
+    transition={{ duration: 0.5 }}
+    
+    className="card">
       <button  className='btnClose' onClick={onClose}>X</button>
       <h3>{name}</h3>
       <img src={"http://openweathermap.org/img/wn/"+img+"@2x.png"} alt={name} className='img-weather'/>
@@ -51,6 +57,6 @@ export default function CardCity({id,name, weather, min, max, img, onClose}: Car
         
         {modalIsOpen ? <DetailCity params={id} modal={modalIsOpen} openModal={openModal} closeModal={closeModal}/> : null}
         </div> 
-    </div>
+    </motion.div>
   )
 }

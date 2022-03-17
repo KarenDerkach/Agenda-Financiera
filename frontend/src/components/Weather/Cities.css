@@ -3,6 +3,7 @@
     background-image: url('../../tools/img/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    /* background-attachment: scroll; */
     background-position: center;
     scroll-behavior: smooth;
     height: 100vh;
