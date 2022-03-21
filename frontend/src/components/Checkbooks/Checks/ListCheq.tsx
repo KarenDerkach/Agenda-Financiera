@@ -227,9 +227,9 @@ function ListCheq(props: CheqOwnProps) {
                   );
                 })
               ) : (
-                <tr>
-                  <td>No hay cheques</td>
-                </tr>
+                <span className={style.notfound}>
+                  <h5 className={style.message}>No hay cheques</h5>
+                </span>
               )}
             </tbody>
           </table>

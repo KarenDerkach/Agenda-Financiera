@@ -3,11 +3,11 @@
 .bkg-main{
     background-image: url('../../tools/img/bkg-home.jpg');
     background-size: cover;
+    object-fit:cover;
+    background-position: center ;
     background-repeat: no-repeat;
-    background-position: center;
-    scroll-behavior: behavior;
-    height: 100vh;
-    width: 100%;
+    background-attachment: fixed;
+    min-height: 100vh
     
 }
 
@@ -34,6 +34,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 5vh;
+
 }
 
 .item-menu{
@@ -45,4 +46,5 @@
 .icon-check{
     font-size: 2rem;
     color: rgb(103, 228, 30);
+   
 }
