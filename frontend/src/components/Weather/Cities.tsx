@@ -19,17 +19,18 @@ interface CityProps {
   
    useEffect(() => {
      props.allCity()
+     
 
-}, [props,change]);
+}, [props, change]);
     
-    const handleDeleteCity = (id:number) => {
-      props.deleteCity(id)
-      setChange(true)
-    }
 
-   
+const handleDeleteCity = (id:number) => {
+  props.deleteCity(id)
+ setChange(!change)
+}
     
     return (
+
       <div className='w-container'>
       
       <div className="row">

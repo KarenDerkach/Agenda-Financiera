@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import Modal from "react-modal";
 import { updateCheq, getCheq} from "../../../redux/actions/Cheqbooks/cheqActions";
 import {FaEdit} from 'react-icons/fa'
-import style from './DetailCheq.module.css'
 import EditCheq from './EditCheq';
 
 interface DetailProps {
