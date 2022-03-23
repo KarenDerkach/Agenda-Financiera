@@ -1,16 +1,16 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { StoreState, Cheq } from "../../../tools/interface";
 import { connect } from "react-redux";
 import Modal from "react-modal";
-import { updateCheq, getCheq} from "../../../redux/actions/Cheqbooks/cheqActions";
+import { detailCheq } from '../../../redux/actions/Cheqbooks/cheqActions';
+import {configDate,formatterPeso} from '../../../tools/formatFunction'
 import {FaEdit} from 'react-icons/fa'
 import EditCheq from './EditCheq';
 
 interface DetailProps {
     stateCheq: Cheq[];
-    updateCheq: (id: string, cheq: Cheq) => void;
-    getCheq(): any;
-    id : string;
+    detailCheq(id: string): any;
+    idCheq : string;
     isChange: boolean;
     modal: boolean;
     openModal: () => void;
@@ -44,29 +44,15 @@ Modal.setAppElement('#root');
 
 
  function DetailCheq(props: DetailProps) {
-    
-    useEffect(() => {
-        props.getCheq();
-    } , [props]);
-
-    const cheq: any = props.stateCheq.find(cheq => cheq._id === props.id);
-
-  //FORMATEOS DE LOS DATOS
-    function configDate (date: any)  {
-      if(date === null || date === undefined) return
-      const day: string = date.split('-').pop().split('').slice(0,2).join('')
-      const rest: string[] = date.split('-').slice(0,2)
   
-      const allDay: string = rest.concat(day).reverse().join('/')
-      return allDay
-    }
 
-    const formatterPeso = new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP',
-      minimumFractionDigits: 0
-    })
+    const cheq: any = props.stateCheq.find(cheq => cheq._id === props.idCheq);
+    console.log("CHEQ ID POR PROPS", props.idCheq)
+    console.log("INFO QUE VIENE CON EL ID", cheq)
 
+
+
+    //CONFIG MODAL
     const [isOpen, setIsOpen] = React.useState(false);
    
 
@@ -80,7 +66,7 @@ Modal.setAppElement('#root');
     setIsOpen(false);
    }
 
- 
+ //FIN CONFIG MODAL
 
 
 
@@ -143,4 +129,4 @@ const mapStateToProps = (state: StoreState): { stateCheq: Cheq[] } => {
     };
   };
   
-export default connect(mapStateToProps, { updateCheq, getCheq})(DetailCheq);
+export default connect(mapStateToProps, {detailCheq})(DetailCheq);

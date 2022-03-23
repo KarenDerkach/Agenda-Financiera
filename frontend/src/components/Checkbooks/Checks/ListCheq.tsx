@@ -1,7 +1,4 @@
-import React,
-{ useEffect } 
-from "react";
-
+import React,{ useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import swal from "sweetalert";
 import { StoreState, Cheq } from "../../../tools/interface";
@@ -9,14 +6,16 @@ import {
   addCheq,
   getCheq,
   deleteCheq,
-  filterCheq
+  filterCheq,
+  detailCheq 
 } from "../../../redux/actions/Cheqbooks/cheqActions";
+import {configDate,formatterPeso} from "../../../tools/formatFunction";
 import NewCheq from "./NewCheq";
+import DetailCheq from "./DetailCheq";
 import style from './ListCheq.module.css'
 /*ICONS */
 import {FaTrash} from 'react-icons/fa'
 import {GrView} from 'react-icons/gr'
-import DetailCheq from "./DetailCheq";
 
 
 interface CheqOwnProps {
@@ -25,43 +24,32 @@ interface CheqOwnProps {
   getCheq(): any;
   deleteCheq(id: string): any;
   filterCheq(data:string): any;
+  detailCheq(id: string): any;
 
 }
 
 function ListCheq(props: CheqOwnProps) {
     
+const idRef = useRef("");
+
+
   const [change , setChange] = React.useState(false);
   const [filter, setFilter] = React.useState("");
  
+
+console.log("INFO DE STATE", props.stateCheq)
+
   useEffect(() => {
     if(!change){
       props.getCheq();
-      
     }else{
       props.filterCheq(filter)
     }
-    
-  }, [props, filter, change]);
+
+  }, [props, change, filter]);
 
   const typeCheq =  ["Cheque Propio", "Cheque Tercero"]
   const statusCheq = ["Pendiente","Pagado","Cobrado","Vencido","Rechazado","Endosado"]
- 
-//FORMATEOS
-  function configDate (date: any)  {
-    if(date === undefined || date === null) return '-'
-    const day: string = date.split('-').pop().split('').slice(0,2).join('')
-    const rest: string[] = date.split('-').slice(0,2)
-
-    const allDay: string = rest.concat(day).reverse().join('/')
-    return allDay
-  }
-  
-  const formatterPeso = new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
-    minimumFractionDigits: 0
-  })
-/////////////////////////////////////////////////////////////////////////////////
 
 
   const handleDelete = ( id: string) => {
@@ -79,6 +67,11 @@ function ListCheq(props: CheqOwnProps) {
     });
   };
 
+  const viewDetailCheq = (id: string) => {
+    idRef.current = id
+    props.detailCheq(id);
+    openModalDetail()
+  }
 
 
 
@@ -140,7 +133,7 @@ function ListCheq(props: CheqOwnProps) {
           {modalNewCheq ? <NewCheq isChange={change} modal={modalNewCheq} openModal={openModalNew} closeModal={closeModalNew}/> : null}
         </div>
 
-        
+        {/* SECTION FILTER */}
          <section className={style.filter_cheq_btn} >
            <div className={style.title_filter}>FILTRAR</div>
          <label>Estado</label>
@@ -171,6 +164,7 @@ function ListCheq(props: CheqOwnProps) {
          </section>
          </div>
 
+                {/* SECTION VIEW CHEQ */}
         <div className={style.detail_ownCheq}>
           <table className="table table-striped">
             <thead>
@@ -191,10 +185,10 @@ function ListCheq(props: CheqOwnProps) {
                 props.stateCheq.map((cheq: Cheq) => {
                   return (
                     <>
-                   	
-                      <tr>
-                        <th scope="row" key={cheq._id}>
-                          {cheq.type}{" "}
+                   	    
+                      <tr key={cheq._id} className={cheq.type[0] === 'Cheque Propio' ? "table-info" : "table-light"}>
+                        <th scope="row" >
+                         {cheq.type}{" "}
                         </th>
 
                         <th scope="row">{configDate(cheq.diferido)}</th>
@@ -203,17 +197,17 @@ function ListCheq(props: CheqOwnProps) {
                         <th scope="row">{cheq.numero}</th>
                         <th scope="row">{cheq.cliente.toUpperCase()}</th>
                         <th scope="row">{formatterPeso.format(cheq.importe)}</th>
-                        <th scope="row">{cheq.status}</th>
+                        <th scope="row" className={cheq.status[0] === 'Pagado' ? "table-success" :  "table-striped"}>{cheq.status}</th>
                         <td className={style.container_actions}>
          
                           
                         <th scope="row">
                            <button type="button"
             className={style.view}
-                    onClick={openModalDetail}
+                    onClick={() => viewDetailCheq(cheq._id)}
             ><GrView/></button>
                           </th>
-                          {modalDetailCheq ? <DetailCheq id={cheq._id} isChange={change} modal={modalDetailCheq} openModal={openModalDetail} closeModal={closeModalDetail}/> : null}
+                          {modalDetailCheq ? <DetailCheq idCheq={idRef.current} isChange={change} modal={modalDetailCheq} openModal={openModalDetail} closeModal={closeModalDetail}/> : null}
 
                           <th scope="row">
                             <button  className={style.trash} onClick={() => handleDelete(cheq._id)}>
@@ -251,4 +245,5 @@ export default connect(mapStateToProps, {
   getCheq,
   deleteCheq,
   filterCheq,
+  detailCheq,
 })(ListCheq);

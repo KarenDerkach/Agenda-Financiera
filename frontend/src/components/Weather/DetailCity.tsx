@@ -38,7 +38,7 @@ Modal.setAppElement('#root');
 
  function DetailCity(props : DetailProps) {
 
-
+      console.log("ID POR PARAMETRO  ",props.params)
     const city: any = props.allCities.find(city => city.id === props.params);
  
     
