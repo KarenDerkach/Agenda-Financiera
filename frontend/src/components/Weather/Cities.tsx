@@ -19,7 +19,7 @@ interface CityProps {
   
    useEffect(() => {
      props.allCity()
-     
+ 
 
 }, [props, change]);
     
