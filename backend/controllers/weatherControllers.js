@@ -3,7 +3,9 @@ const axios = require('axios');
 
 const {
     API_PASSWORD,
-    URL_API
+    URL_API,
+    URL_API_DETAIL
+
 } = process.env;
 
 //info ciudad especifica
@@ -53,7 +55,7 @@ const detailCity = async (req, res) => {
     const { latitud , longitud } = req.params
     try {
         const extendedWeather = await axios.get(
-            `https://api.openweathermap.org/data/2.5/onecall?lat=${latitud}&lon=${longitud}&lang=es&appid=${API_PASSWORD}&units=metric`
+            `${URL_API_DETAIL}lat=${latitud}&lon=${longitud}&lang=es&appid=${API_PASSWORD}&units=metric`
           );
         if(extendedWeather){
             const dataExtended = await extendedWeather.data
