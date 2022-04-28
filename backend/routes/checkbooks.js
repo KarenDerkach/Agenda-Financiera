@@ -10,13 +10,26 @@ const {
     detailCheq,
     filterCheq,
 } = require('../controllers/cheqControllers')
+//const {verifyToken, isUser }= require('../middlewares/authMiddleware')
 
-route.post('/newCheq', addCheq)
-route.get('/listCheq', listCheq)
-route.delete('/deleteCheq/:id', deleteCheq)
-route.put('/updateCheq/:id', updateCheq)
-route.get('/detailCheq/:id', detailCheq)
-route.get('/cheq', filterCheq)
+route.post('/newCheq',
+// [verifyToken, isUser],
+ addCheq)
+route.get('/listCheq',
+// [verifyToken, isUser],
+ listCheq)
+route.delete('/deleteCheq/:id',
+// [verifyToken, isUser],
+ deleteCheq)
+route.put('/updateCheq/:id',
+// [verifyToken, isUser],
+ updateCheq)
+route.get('/detailCheq/:id',
+// [verifyToken, isUser], 
+detailCheq)
+route.get('/cheq',
+// [verifyToken, isUser], 
+filterCheq)
 
 
 module.exports = route

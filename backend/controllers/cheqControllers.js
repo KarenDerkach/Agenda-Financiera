@@ -1,12 +1,21 @@
 const CheqModel = require('../models/cheq-models')
+const UserModel = require('../models/user-models')
 
 
 //emision de cheque
 const addCheq = async(req,res) =>{
     const {cliente, banco, numero, status, diferido,type, pago,ingreso, importe, observacion} = req.body
-    
+     const {userId} = req
     try{
-    
+
+        const findUser = await UserModel.findById(userId)
+        
+        const findNumber = await CheqModel.findOne({numero})
+        if(findNumber){
+            res.status(400).json({
+                message: "El numero de cheque ya existe"
+            })
+        }
     if(cliente && banco && numero && type &&diferido && importe){
         const newCheq = new CheqModel({
             cliente,
@@ -20,10 +29,15 @@ const addCheq = async(req,res) =>{
             importe,
             observacion
         })
-       await newCheq.save()
+       const cheqSave = await newCheq.save()
+
+       //guardo en el modelo de user el cheque creado
+       findUser.chequeras = [...findUser.chequeras, cheqSave._id]
+         await findUser.save()
+
         res.status(200).json({
             message: "Cheque ingresado correctamente",
-            response: newCheq
+            response: cheqSave
         })}else{
             res.status(400).json({
                 message: "Faltan datos"
@@ -31,6 +45,7 @@ const addCheq = async(req,res) =>{
         }
     }
     catch(err){
+        console.log(err)
         res.status(500).json({error: err})
     }
 
@@ -40,10 +55,11 @@ const addCheq = async(req,res) =>{
 //listado de cheques 
 const listCheq = async(req,res) =>{
     try{
-        const listCheq = await CheqModel.find()
+        const listCheq = await CheqModel.find().populate('user',{name: 1, email: 1 , role:1})
         res.status(200).send(listCheq)
     }
     catch(err){
+        console.log(err)
         res.status(500).json({error: err})
     }
 }
@@ -140,13 +156,7 @@ const filterCheq = async(req,res) =>{
     }
 
 }
-//ORDENAR cheque por fecha diferido
 
-//Obtener cheque por TYPE
-
-//Obtener cheque por status
-
-//Obtener cheque por BANCO
 
 module.exports = {
     addCheq,

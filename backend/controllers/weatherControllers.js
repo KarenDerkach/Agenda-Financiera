@@ -48,6 +48,34 @@ const dataAPI = async (req, res) => {
 
 }
 
+//info extendida de ciudad
+const detailCity = async (req, res) => {
+    const { latitud , longitud } = req.params
+    try {
+        const extendedWeather = await axios.get(
+            `https://api.openweathermap.org/data/2.5/onecall?lat=${latitud}&lon=${longitud}&lang=es&appid=${API_PASSWORD}&units=metric`
+          );
+        if(extendedWeather){
+            const dataExtended = await extendedWeather.data
+            const detail = {
+                name: dataExtended.timezone.split('/').splice(1).shift(),
+                current : dataExtended.current,
+                minute : dataExtended.minutely,
+                daily: dataExtended.daily,
+                hourly: dataExtended.hourly,
+
+            }
+            res.status(200).send(detail)
+        }else{
+            res.status(404).send("ERROR")
+        }
+
+    }
+    catch (err) {
+        res.status(500).send(err)
+    }
+}
+
 //obtener todas las ciudades
 const getAllCities = async (req, res) => {
 
@@ -81,5 +109,6 @@ const deleteCity = async (req, res) => {
 module.exports = {
     dataAPI,
     getAllCities,
+   detailCity,
     deleteCity
 }

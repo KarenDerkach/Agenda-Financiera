@@ -9,6 +9,7 @@ const entrieEventSchema = new Schema({
     end: {type: Date, required: true},
     notes: String,
     type: { type: ["Cumpleaños","Reunion","Trabajo","Tareas", "Otros"], default: ["Reunion"]},
+    user: {type: Schema.Types.ObjectId, ref: "usuarios"}
 
 })
 

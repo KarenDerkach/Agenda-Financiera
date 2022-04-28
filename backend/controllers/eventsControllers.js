@@ -1,4 +1,5 @@
 const EventModel = require('../models/event-models')
+const UserModel = require('../models/user-models')
 
 const getEvents = async (req, res) => {
     try {
@@ -21,9 +22,15 @@ const createEvent = async (req, res) => {
         start,
         end,
         notes,
-        type
+        type,
+        user
     } = req.body
+
+    const {userId} = req
     try {
+
+        const findUser = await UserModel.findById(userId)
+
         if(title && start && end && type){
         const event = new EventModel({
             title,
@@ -32,7 +39,13 @@ const createEvent = async (req, res) => {
             notes,
             type
         })
-        await event.save()
+       const eventSave = await event.save()
+
+ //guardo en el modelo de user el cheque creado
+ findUser.events = [...findUser.events, eventSave._id]
+ await findUser.save()
+
+
         res.status(201).json({
             message: 'Evento creado',
             event

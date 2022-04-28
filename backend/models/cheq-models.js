@@ -17,10 +17,11 @@ const entrieCheqSchema = new Schema({
     pago:{type: Date},
     importe:{type: Number, required: true},
     observacion: String,
+    user: {type: Schema.Types.ObjectId, ref: "usuarios"}
     
 })
 
 //model recibe dos parametros, 1ero: nombre de la collection , 2do: schema del modelo
-const CheqModel = mongoose.model('cheq_propios', entrieCheqSchema)
+const CheqModel = mongoose.model('chequeras', entrieCheqSchema)
 
 module.exports = CheqModel
