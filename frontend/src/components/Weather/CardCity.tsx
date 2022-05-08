@@ -1,6 +1,6 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import './CardCity.css'
-import DetailCity from './DetailCity';
 import { motion } from "framer-motion"
 
 interface CardCityProps {
@@ -10,26 +10,14 @@ interface CardCityProps {
   min: number;
   max: number;
   img: string;
+  lat: number;
+  lon: number;
   onClose: () => void;
 }
 
-export default function CardCity({id,name, weather, min, max, img, onClose}: CardCityProps) {
+export default function CardCity({id,name, weather, min, max, img, lat, lon, onClose}: CardCityProps) {
 
-    /*CONFIG MODAL*/
-
-    const [modalIsOpen, setIsOpen] = React.useState(false);
-
-    function openModal() {
-      setIsOpen(true);
-    }
-  
-  
-    function closeModal() {
-      setIsOpen(false);
-    }
-  
-
-    /////////////////////////////////////////
+   
   return (
 
     <motion.div 
@@ -53,9 +41,7 @@ export default function CardCity({id,name, weather, min, max, img, onClose}: Car
         </div> 
         <div>
       
-        <button className='btn-info'onClick={openModal} >Más Información</button>
-        
-        {modalIsOpen ? <DetailCity params={id} modal={modalIsOpen} openModal={openModal} closeModal={closeModal}/> : null}
+        <Link to={`/detail/${lat}/${lon}`}><button className='btn-info' >Más Información</button></Link>
         </div> 
     </motion.div>
   )

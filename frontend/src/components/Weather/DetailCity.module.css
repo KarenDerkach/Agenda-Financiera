@@ -1,79 +1,82 @@
-.ReactModalPortal > div{
-    opacity: 0;
+.intro{
+    font-size: 1.5rem;
+    font-weight: bold;
+   
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
-.ReactModalPortal .ReactModal__Overlay {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    transition: opacity .2s ease-in-out;
-    z-index: 1000;
-}
-
-.overlay {
-    background-color: rgba(0, 0, 0, 0.3);
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    position: fixed;
-}
-
-.ReactModalPortal .ReactModal__Overlay--after-open {
-    opacity: 1;
-}
-
-.ReactModalPortal .ReactModal__Overlay--before-close {
-    opacity: 0;
-}
-
-
-/*FIN STYLE MODAL*/
-
-.modal_detail{
-    background-color: #b9d82e;
-    border-radius: .7rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+.cards{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
+    justify-content: space-between;
+}
+
+.swiper{
     width: 100%;
+    height: 100%;
+    box-shadow: 6px 7px 8px -6px rgba(0, 0, 0, 0.75);
+    border-radius: 47px;
+    background: rgba(255, 255, 255, 0.527);
+    margin-top: 5%;
+}
+.swiper-slide{
+    background-color: black;
+}
+.swiperDaily{
+   margin-top: 10vh;
+}
+.contentDaily{
+    margin:50px;
     
-    
+}
+.dailySecction{
+    width: 80%;
+    height: 80%;
+}
+.containerDaily{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+}
+
+.cardDaily{
+    width: 20vw;
+    background-color: rgba(182, 184, 178, 0.541);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5vh;
+    margin: 50px;
+    border: none;
+    border-radius: 10px;
    
+    
 }
-.btnClose{
-    border: solid 1px transparent;
-  border-radius: 10000px;
-  width: 2rem;
-  height: 2rem;
-  font-size: 1.5rem;
-margin-left: 40vh;
-margin-top: 2vh;
-  background-color: transparent;
-  cursor: pointer;
-  color: #fff;
-  display: flex;
-    justify-content: center;
+
+.rowTemperature{
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
+    height: 10%;
+    padding: 0 5%;
 }
 
-.btnClose:hover {
-    background-color: #e70d0d;
-    box-shadow: 4px 4px 20px rgba(242, 151, 107, 0.52);;
-    color: white;
-    
-  }
-
-.imgWeather{
-    
-        width: 40%;
-        height: 40%;
-        object-fit: cover;
-      
-        
-    
-    
+.descriptionDaily{
+    margin-top: -10vh;
+    margin-bottom: 3vh;
+    font-size: 1.2rem;
+}
+.imgDaily{
+    width: 20%;
+    height: 50%;
+    object-fit: cover;
+    margin-top: -5vh;
+    margin-bottom: 5vh;
+  
 }

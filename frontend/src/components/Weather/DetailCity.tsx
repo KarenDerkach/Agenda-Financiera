@@ -1,87 +1,168 @@
-import React from 'react'
-
-import Modal from 'react-modal';
-import { StoreState, City} from '../../tools/interface';
-import {connect} from 'react-redux';
+import React , {useEffect}from 'react'
+import { Swiper, SwiperSlide} from "swiper/react";
+import {useSelector, useDispatch} from 'react-redux';
+import { useParams } from "react-router-dom";
+import { detailCity } from '../../redux/actions/Weather/actions';
 import style from './DetailCity.module.css';
-
-interface DetailProps {
-    params : number;
-    allCities: City[];
-    modal: boolean;
-    openModal(): any;
-      closeModal(): any;
-  }
-
-  /* Inicio Conf Modal */
-const customStyles = {
-	content: {
-		top: '50%',
-		left: '50%',
-		right: 'auto',
-		bottom: 'auto',
-		marginRight: '-50%',
-		transform: 'translate(-50%, -50%)',
-        backgroundColor: 'white',
-        border: 'none',
-        borderRadius: '10px',
-        width: '30vw',
-        height: '70vh'
-        
-	},
-};
-
-Modal.setAppElement('#root');
-
-/* Fin config modal */
+import "swiper/css";
+import "swiper/css/pagination";
+import {Autoplay,EffectCoverflow, Pagination } from "swiper";
 
 
- function DetailCity(props : DetailProps) {
+export default function DetailCity() {
 
-      console.log("ID POR PARAMETRO  ",props.params)
-    const city: any = props.allCities.find(city => city.id === props.params);
- 
+  const {latitud, longitud} = useParams() as {latitud: string, longitud: string};
+  const infoCity = useSelector((state:any) => state.city);
+
+//console.log("INFOOO",infoCity)
     
+const dispatch = useDispatch();
 
-  return (
-    <Modal
-        isOpen={props.modal}
-        onRequestClose={props.closeModal}
-        style={customStyles}
-        overlayClassName={style.overlay}
-       
-              >
+useEffect(() => {
+  dispatch(detailCity(latitud, longitud))
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+},[]);
+
+
+  const daily = infoCity.daily 
+  const hours = infoCity.hourly
+
+const week = [
+  "Domingo",
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+];
+const today = new Date().getDay();
+const sortedDay = week.splice(today);
+
+for (let i = 0; i < week.length; i++) {
+  sortedDay.push(week[i]);
+}
+sortedDay.push(sortedDay[0]);
+
+const hourNow = new Date().getHours();
+const hoursTodayAndTomorrow = [];
+for (let i = 0; i < 24; i++) {
+  if (hourNow + i > 23) {
+    hoursTodayAndTomorrow.push(hourNow + i - 24);
+  } else {
+    hoursTodayAndTomorrow.push(hourNow + i);
+  }
+}
+const hours48 = [...hoursTodayAndTomorrow, ...hoursTodayAndTomorrow];
+
+const hora = new Date().getHours();
+const minutos = new Date().getMinutes();
+const letras = hora < 12 ? "am" : "pm";
+
+
+  return(
+    <div className={style.detailWeather}>
+  <div className={style.intro}>
+       <div className={style.nameCity}>{infoCity.name}</div>
+    <div className="horas">
+         - {minutos < 9
+            ? `${hora}:0${minutos}${letras}`
+            : `${hora}:${minutos}${letras}`} -
+        </div>
+      </div>
+      <div className={style.cards}>
+
+
+      <Swiper
+        slidesPerView={8}
+        spaceBetween={5}
+        autoplay={{
+          delay: 1500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Autoplay,Pagination]}
+        className={style.swiper}
+      >
+          {hours?.map((h:any, i:any) => (
+            // <Hourly hour={hours48[i]} weather={h.weather} temp={h.temp} />
+            <SwiperSlide>
+         
+      <div className={style.contentDaily}>
+        {hours48[i] > 9 ? hours48[i] : `0${hours48[i]}`}
+      <div>{h.temp}°c</div>
+      <img
+        className="imagen"
+        src={"http://openweathermap.org/img/wn/" + h.weather[0].icon + "@2x.png"}
+        width="40"
+        height="40"
+        alt=""
+      />
+      </div>
       
-        {    city ? (     
-        <div className={style.modal_detail} >
-      <button onClick={props.closeModal} className={style.btnClose}>X</button>
-      <h3>{city.name}</h3>
-      <img src={"http://openweathermap.org/img/wn/"+city.img+"@2x.png"} alt={city.name} className={style.imgWeather}/>
-      <p > <strong>Clima : </strong> {city.weather}</p>
-      <div className={style.container_temp}>
-        <p> <strong>Temperatura Minima : </strong> {city.min}°</p>
-        <p> <strong>Temperatura Maxima : </strong> {city.max}°</p>
-           
-        </div> 
-            <div className={style.container_infoextra}>
-              <p><strong>Viento: </strong> {city.wind} km/h </p>
-              <p><strong>Humedad: </strong>{city.humidity}%</p>
-              
-            </div>
- </div> 
+       </SwiperSlide>
+          ))}
+     
+      </Swiper>
+
+<div className={style.dailySecction}>
+      <Swiper
+        effect={"coverflow"}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={"auto"}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
+        pagination={true}
+        modules={[EffectCoverflow, Pagination]}
+        className={style.swiperDaily}
+      >
+        <div className={style.containerDaily}>
+          {daily?.map((d:any, i:any) => (
+
+<SwiperSlide>
+            <div className={style.contentDaily}>
+  <h3>{sortedDay[i]}</h3>
+  <img src={"http://openweathermap.org/img/wn/" + d.weather[0].icon + "@2x.png"} alt="img"  className={style.imgDaily}/>
+
+  <div className={style.descriptionDaily}>{d.weather[0].description}</div>
+  <div className={style.rowTemperature}>
+        <div>
+          <p>Min</p>
+          <p>{d.temp.min}°c</p>
+        </div>
+        <div >
+          <p>Max</p>
+          <p>{d.temp.max}°c</p>
+        </div>
+    </div> 
+    </div>
+    </SwiperSlide>
+          ))}
+        </div>
+      </Swiper>
+      </div>
+    </div>
         
-        ) : null}
-      
- 
-   </Modal>
+  
+  
+  
+    </div>
+
+
+
   )
 }
 
-const mapStateToProps = (state: StoreState): {allCities: City[]} => {
-    return {
-      allCities: state.allCities
-    };
-  };
 
-  export default connect(mapStateToProps)(DetailCity);
+
+ 
 

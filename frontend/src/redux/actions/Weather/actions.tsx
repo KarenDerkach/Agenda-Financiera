@@ -1,7 +1,7 @@
 import api from "../../../service/api"
 import { Dispatch } from 'redux';
 import { actionsTypes } from '../types'
-import {AllCityDispatch, City, CityDispatch, DeleteDispatch} from '../../../tools/interface';
+import {City, CityDispatch} from '../../../tools/interface';
 import swal from "sweetalert";
 
 
@@ -25,7 +25,7 @@ export function allCity (){
     return async function(dispatch:Dispatch){
         await api.get<City[]>(`/weather`)
         .then((dataAPI) : void =>{
-            dispatch<AllCityDispatch>({type: actionsTypes.allCity , payload: dataAPI.data})
+            dispatch<CityDispatch>({type: actionsTypes.allCity , payload: dataAPI.data})
         })
        
     }
@@ -35,7 +35,17 @@ export function deleteCity(id:number){
     return async function(dispatch:Dispatch){
         await api.delete(`/weather/${id}`)
         .then((dataAPI) : void =>{
-            dispatch<DeleteDispatch>({type: actionsTypes.deleteCity , payload: dataAPI.data})
+            dispatch<CityDispatch>({type: actionsTypes.deleteCity , payload: dataAPI.data})
+        })
+       
+    }
+}
+
+export function detailCity(latitud: string, longitud: string){
+    return async function(dispatch:Dispatch){
+        await api.get(`/weather/detail/${latitud}/${longitud}`)
+        .then((dataAPI) : void =>{
+            dispatch<CityDispatch>({type: actionsTypes.detailCity , payload: dataAPI.data})
         })
        
     }

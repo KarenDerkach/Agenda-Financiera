@@ -1,58 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { searchCity , allCity} from "../../redux/actions/Weather/actions";
-import { StoreState, City } from "../../tools/interface";
-import {ImSearch} from 'react-icons/im'
-import './SearchBar.css';
-import swal from 'sweetalert';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { searchCity } from "../../redux/actions/Weather/actions";
+import { ImSearch } from "react-icons/im";
+import "./SearchBar.css";
+//import swal from 'sweetalert';
 
-interface SearchBarProps {
-  searchCity(city: string): any;
-  allCity(): any;
-}
-
-function SearchBar(props: SearchBarProps) {
+export default function SearchBar() {
+  const dispatch = useDispatch();
 
   const [stateCity, setstateCity] = useState("");
-  const [change, setChange] = React.useState(false);
-
-useEffect(() => {
-  props.allCity()
-
-
-}, [props,change]);
-
 
   const handleChange = (e: any) => {
     setstateCity(e.target.value);
-  }
+  };
 
   const handleSubmit = (e: any) => {
-    if(!stateCity) return swal("No se ha encontrado la ciudad", "intenta con una nueva", "warning");
     e.preventDefault();
-    props.searchCity(stateCity);
-    setChange(!change);
+    // if(!stateCity) return swal("No se ha encontrado la ciudad", "intenta con una nueva", "warning");
+    dispatch(searchCity(stateCity));
     setstateCity("");
-  }
+  };
 
   return (
     <div className="container-searchBar">
       <form className="box" onSubmit={handleSubmit}>
-        <input className="inputCity"
+        <input
+          className="inputCity"
           type="text"
           placeholder="Busca tu ciudad..."
           value={stateCity}
-          onChange={(e)=>handleChange(e)} 
+          onChange={(e) => handleChange(e)}
         />
-        <button className="btnCity" type="submit" onClick={ handleSubmit}><ImSearch className="icon"/></button>
+        <button className="btnCity" type="submit" onClick={handleSubmit}>
+          <ImSearch className="icon" />
+        </button>
       </form>
     </div>
   );
 }
-const mapStateToProps = (state: StoreState): { city: City[] } => {
-  return {
-    city: state.city,
-  };
-};
-
-export default connect(mapStateToProps, { searchCity, allCity })(SearchBar);
