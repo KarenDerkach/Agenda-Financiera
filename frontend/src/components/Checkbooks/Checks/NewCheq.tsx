@@ -113,7 +113,7 @@ function NewCheq(props: CheqOwnProps) {
         observacion: "",
         _id: "",
       });
-      swal("Cheq creado", "", "success");
+      // swal("Cheq creado", "", "success");
     } else {
       swal("Faltan datos", "", "warning");
     }

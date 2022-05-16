@@ -1,4 +1,5 @@
 import api from "../../../service/api"
+import swal from "sweetalert";
 import { Dispatch } from 'redux';
 import { Cheq, CheqDispatch } from "../../../tools/interface";
 import { actionsTypes } from '../types';
@@ -19,7 +20,7 @@ export function addCheq (cheq:any) {
         }
         catch(err){
             console.log(err)
-            window.alert("Error al crear cheque, debes registrarte")
+            swal("Error al crear cheque, debes registrarte", "", "warning");
         }
     }
 }
