@@ -10,7 +10,7 @@ try{
     let userFound = await UserModel.findOne({ email });
 
     if (userFound) {
-      res.status(401).json({
+      return res.status(401).json({
         err:true,
         message: "El email ya se encuentra registrado",
 
@@ -18,14 +18,14 @@ try{
       
     }
     if(!email, !password, !name){
-      res.status(401).json({
+      return res.status(401).json({
         err: true,
         message: "Todos los campos son requeridos"
       
       })
     }
     if(password.length < 6){
-      res.status(401).json({
+     return res.status(401).json({
         err: true,
         message: "La contraseña debe tener al menos 6 caracteres"
       })
@@ -40,7 +40,7 @@ try{
     
     if(role){
     const foundRole = await RoleModel.find({name:  role})
-    newUsuario.role = foundRole.map(role => role._id) 
+ newUsuario.role = foundRole.map(role => role._id) 
     //si no se asigna el role, no se le asigna usuario
   }else{
     const roles = await RoleModel.findOne({name: "user"})
@@ -53,7 +53,7 @@ try{
     // Generar JWT
      const token = await generateToken(savedUser._id);
 
-    res.status(201).json({
+   return res.status(201).json({
       ok: true,
       id: savedUser._id,
       name: savedUser.name,
@@ -78,39 +78,44 @@ catch(err){
 
 const loginUsuario = async (req, res) => {
   const { email, password } = req.body;
+  try{
 
     const userFound = await UserModel.findOne({ email }).populate("role", {
       _id: 0,
       __v: 0,
     });
     if (!userFound) {
-      res.status(401).json({
+      return res.status(401).json({
         err: true,
         message: "El usuario no existe, registrate"
       })
     }
-
     // Confirmar los passwords
     const validPassword = UserModel.matchPassword(password, userFound.password);
-
+  
     if (!validPassword) {
-      res.status(401).json({
+     return  res.status(401).json({
         err: true,
         message: "Contraseña invalida"
       })
       
     }
-
-    // Generar JWT
-    const token = await generateToken(userFound._id);
-
-    res.json({
-      ok: true,
-      id: userFound._id,
-      name: userFound.name,
-      token,
-    });
- 
+  
+  
+      // Generar JWT
+      const token = await generateToken(userFound._id);
+  
+    return  res.json({
+        ok: true,
+        id: userFound._id,
+        name: userFound.name,
+        token,
+      });
+   
+  }
+catch(error){
+  console.log(error)
+}
 };
 
 

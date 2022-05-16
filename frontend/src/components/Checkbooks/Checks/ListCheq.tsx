@@ -1,9 +1,10 @@
 import React,{ useEffect, useRef } from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
 import swal from "sweetalert";
 import { StoreState, Cheq } from "../../../tools/interface";
 import {
-  addCheq,
+  //addCheq,
   getCheq,
   deleteCheq,
   filterCheq,
@@ -18,35 +19,37 @@ import {FaTrash} from 'react-icons/fa'
 import {GrView} from 'react-icons/gr'
 
 
-interface CheqOwnProps {
-  stateCheq: Cheq[];
-  addCheq(cheq: Cheq): any;
-  getCheq(): any;
-  deleteCheq(id: string): any;
-  filterCheq(data:string): any;
-  detailCheq(id: string): any;
 
-}
 
-function ListCheq(props: CheqOwnProps) {
+export default function ListCheq() {
     
 const idRef = useRef("");
 
+const stateCheq = useSelector((state: StoreState) => state.stateCheq);
+const dispatch = useDispatch();
 
   const [change , setChange] = React.useState(false);
   const [filter, setFilter] = React.useState("");
  
 
-console.log("INFO DE STATE", props.stateCheq)
+// console.log("INFO DE STATE", props.stateCheq)
 
   useEffect(() => {
-    if(!change){
-      props.getCheq();
+    if(change===false){
+      dispatch(getCheq());
     }else{
-      props.filterCheq(filter)
+      dispatch(filterCheq(filter))
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [change, filter, stateCheq]);
 
-  }, [props, change, filter]);
+  // useEffect(() => {
+  //   dispatch(getCheq());
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // } , [stateCheq]);
+
+
+  
 
   const typeCheq =  ["Cheque Propio", "Cheque Tercero"]
   const statusCheq = ["Pendiente","Pagado","Cobrado","Vencido","Rechazado","Endosado"]
@@ -59,8 +62,8 @@ console.log("INFO DE STATE", props.stateCheq)
       buttons: [true, "Eliminar"],
     }).then((willDelete) => {
       if (willDelete) {
-        props.deleteCheq(id);
-        setChange(false)
+        dispatch(deleteCheq(id));
+        //setChange(true)
       } else {
         swal("Cheque salvado!");
       }
@@ -69,8 +72,9 @@ console.log("INFO DE STATE", props.stateCheq)
 
   const viewDetailCheq = (id: string) => {
     idRef.current = id
-    props.detailCheq(id);
+    dispatch(detailCheq(id));
     openModalDetail()
+    //setChange(false)
   }
 
 
@@ -84,13 +88,13 @@ console.log("INFO DE STATE", props.stateCheq)
 
   const handleClearFilter = () => {
     setFilter("");
-    props.getCheq();
+    dispatch(getCheq());
     setChange(false)
   }
 
   const handleAplyFilter = (e: any) => {
     e.preventDefault();
-    props.filterCheq(filter);
+    dispatch(filterCheq(filter));
     setChange(true);
   }
 
@@ -130,14 +134,14 @@ console.log("INFO DE STATE", props.stateCheq)
           >
             NUEVO REGISTRO
           </button>
-          {modalNewCheq ? <NewCheq isChange={change} modal={modalNewCheq} openModal={openModalNew} closeModal={closeModalNew}/> : null}
+          {modalNewCheq ? <NewCheq isChange={setChange} modal={modalNewCheq} openModal={openModalNew} closeModal={closeModalNew}/> : null}
         </div>
 
         {/* SECTION FILTER */}
          <section className={style.filter_cheq_btn} >
            <div className={style.title_filter}>FILTRAR</div>
          <label>Estado</label>
-              <select className={style.select_option} onClick={(e)=>handleSelectFilter(e)}>
+              <select className={style.select_option} onClick={handleSelectFilter}>
                 {
                   statusCheq.map((status: string) => {
                     return (
@@ -147,7 +151,7 @@ console.log("INFO DE STATE", props.stateCheq)
                 }
               </select>
             <label>Tipo</label>
-              <select  className={style.select_option} onClick={(e)=>handleSelectFilter(e)}>
+              <select  className={style.select_option} onClick={handleSelectFilter}>
                 {
                   typeCheq.map((type: string) => {
                     return (
@@ -159,7 +163,7 @@ console.log("INFO DE STATE", props.stateCheq)
               </select>
               <div className={style.seccion_btn_filter} >
               <button className="btn btn-outline-warning" onClick={handleClearFilter}>Limpiar</button>
-            <button className="btn btn-outline-success" onClick={(e)=>handleAplyFilter(e)}>Aplicar</button>
+            <button className="btn btn-outline-success" onClick={handleAplyFilter}>Aplicar</button>
             </div>
          </section>
          </div>
@@ -181,10 +185,11 @@ console.log("INFO DE STATE", props.stateCheq)
               </tr>
             </thead>
             <tbody>
-              {props.stateCheq.length > 0 ? (
-                props.stateCheq.map((cheq: Cheq) => {
+              {stateCheq.length > 0 ? (
+                stateCheq.map((cheq: Cheq) => {
                   return (
                     <>
+                    {/* reemplazar th por td */}
                    	    
                       <tr key={cheq._id} className={cheq.type[0] === 'Cheque Propio' ? "table-info" : "table-light"}>
                         <th scope="row" >
@@ -234,16 +239,5 @@ console.log("INFO DE STATE", props.stateCheq)
   );
 }
 
-const mapStateToProps = (state: StoreState): { stateCheq: Cheq[] } => {
-  return {
-    stateCheq: state.stateCheq,
-  };
-};
 
-export default connect(mapStateToProps, {
-  addCheq,
-  getCheq,
-  deleteCheq,
-  filterCheq,
-  detailCheq,
-})(ListCheq);
+

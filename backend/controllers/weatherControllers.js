@@ -34,7 +34,7 @@ const dataAPI = async (req, res) => {
                     longitud: dataCity.coord.lon
                 };
                 arrayCiudades.push(ciudad)
-                res.status(200).send(ciudad)
+              return  res.status(200).send(ciudad)
 
             } else {
                 res.status(404).send("ERROR")

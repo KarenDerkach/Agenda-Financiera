@@ -12,7 +12,7 @@ const addCheq = async(req,res) =>{
         
         const findNumber = await CheqModel.findOne({numero})
         if(findNumber){
-            res.status(400).json({
+           return res.status(400).json({
                 message: "El numero de cheque ya existe"
             })
         }
@@ -35,7 +35,7 @@ const addCheq = async(req,res) =>{
        findUser.chequeras = [...findUser.chequeras, cheqSave._id]
          await findUser.save()
 
-        res.status(200).json({
+       return res.status(200).json({
             message: "Cheque ingresado correctamente",
             response: cheqSave
         })}else{

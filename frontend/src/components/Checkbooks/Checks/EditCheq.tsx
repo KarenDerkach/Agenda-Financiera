@@ -48,10 +48,10 @@ Modal.setAppElement('#root');
  function DetailCheq(props: EditProps) {
 
 
-    const [change, setChange] = React.useState(false);
-    useEffect(() => {
-        props.getCheq();
-    } , [props, change]);
+    // const [change, setChange] = React.useState(false);
+    // useEffect(() => {
+    //     props.getCheq();
+    // } , [props, change]);
 
    
     const cheq: any = props.stateCheq.find(cheq => cheq._id === props.id);
@@ -82,7 +82,7 @@ Modal.setAppElement('#root');
 if(momentPago_Cobro.isBefore(momentDiferido)) return swal("Error", "La fecha de pago no puede ser anterior a la fecha de diferido", "error")
 e.preventDefault()
       props.updateCheq(id, input)
-      setChange(!change)
+      //setChange(!change)
      
     }
 

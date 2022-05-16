@@ -1,5 +1,5 @@
 import React
- 
+, { Dispatch } 
 from "react";
 
 import { connect } from "react-redux";
@@ -19,7 +19,7 @@ interface CheqOwnProps {
   stateCheq: Cheq[];
   addCheq(cheq: Cheq): any;
   getCheq(): any;
-  isChange: boolean;
+  isChange: Dispatch<boolean>;
   modal: boolean;
     openModal(): any;
       closeModal(): any;
@@ -89,7 +89,7 @@ function NewCheq(props: CheqOwnProps) {
     const momentEmision = moment(input.ingreso);
     const momentDiferido= moment(input.diferido);
 
-    if(momentEmision.isAfter(momentDiferido)) return swal("La fecha de diferido no puede ser  a la fecha de ingreso")
+    if(momentEmision.isAfter(momentDiferido)) return swal("La fecha de diferido no puede ser menor a la fecha de ingreso")
     if (
       input.cliente !== "" &&
       input.banco !== "" &&
@@ -99,6 +99,7 @@ function NewCheq(props: CheqOwnProps) {
     ) {
       e.preventDefault();
       props.addCheq(input);
+      props.isChange(true);
       setInput({
         cliente: "",
         banco: "",
@@ -113,7 +114,6 @@ function NewCheq(props: CheqOwnProps) {
         _id: "",
       });
       swal("Cheq creado", "", "success");
-      props.isChange = true;
     } else {
       swal("Faltan datos", "", "warning");
     }

@@ -47,8 +47,8 @@ Modal.setAppElement('#root');
   
 
     const cheq: any = props.stateCheq.find(cheq => cheq._id === props.idCheq);
-    console.log("CHEQ ID POR PROPS", props.idCheq)
-    console.log("INFO QUE VIENE CON EL ID", cheq)
+    // console.log("CHEQ ID POR PROPS", props.idCheq)
+    // console.log("INFO QUE VIENE CON EL ID", cheq)
 
 
 

@@ -1,13 +1,21 @@
 import {combineReducers} from 'redux';
-import { cityReducer, allCityReducer, deleteReducer } from './cityReducer';
+import { cityReducer } from './cityReducer';
 import { addCheqReducer } from './cheqReducer';
 import { eventReducer } from './eventReducer';
+import { userReducer } from './userReducer';
 import {StoreState} from '../../tools/interface';
 
 export const reducers = combineReducers <StoreState>({
 	city: cityReducer,
-	allCities: allCityReducer,
-	deleteCity:deleteReducer,
 	stateCheq: addCheqReducer,
-	stateEvent: eventReducer
+	stateEvent: eventReducer,
+	stateUser: userReducer
 });
+
+
+// const userInfoFromStorage = localStorage.getItem("token") || "";
+// const info = userInfoFromStorage ? JSON.parse(userInfoFromStorage) : '';
+
+// export const initialState = {
+//   stateUser: { userInfo: info },
+// };

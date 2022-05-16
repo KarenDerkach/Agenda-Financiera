@@ -40,22 +40,24 @@ export interface Event{
 
 }
 
+export interface User{
+    data:{name: string,
+    email: string,
+    password: string,
+    _id:string
+    }
+    error: string,
+    loading:boolean,
+    isLogged:boolean
+}
+
 //DISPATCH
 
 export interface CityDispatch{
-    type: actionsTypes.searchCity,
+    type: actionsTypes.searchCity | actionsTypes.allCity | actionsTypes.deleteCity | actionsTypes.detailCity,
     payload: City[]
 }
 
-export interface AllCityDispatch{
-    type: actionsTypes.allCity,
-    payload: City[]
-}
-
-export interface DeleteDispatch{
-    type: actionsTypes.deleteCity,
-    payload: City[]
-}
 
 export interface CheqDispatch{
     type: actionsTypes.addCheq | actionsTypes.getAllCheq | actionsTypes.deleteCheq | actionsTypes.updateCheq |actionsTypes.detailCheq |actionsTypes.filterCheq
@@ -67,11 +69,15 @@ export interface EventDispatch{
     payload: Event[]
 }
 
+export interface UserDispatch{
+    type: actionsTypes.userLoginReq |actionsTypes.userLogin |  actionsTypes.userLoginFail | actionsTypes.logoutUser | actionsTypes.userRegisterReq | actionsTypes.userRegister | actionsTypes.userRegisterFail
+    payload: Object
+}
+
 //STORE
 export interface StoreState {
 	city: City[],
-    allCities: City[],
-    deleteCity: City[],
     stateCheq: Cheq[]
     stateEvent: Event[]
+    stateUser: any
 }

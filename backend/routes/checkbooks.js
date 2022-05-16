@@ -10,25 +10,25 @@ const {
     detailCheq,
     filterCheq,
 } = require('../controllers/cheqControllers')
-//const {verifyToken, isUser }= require('../middlewares/authMiddleware')
+const {verifyToken, isUser }= require('../middlewares/authMiddleware')
 
 route.post('/newCheq',
-// [verifyToken, isUser],
+ [verifyToken, isUser],
  addCheq)
 route.get('/listCheq',
-// [verifyToken, isUser],
+ [verifyToken, isUser],
  listCheq)
 route.delete('/deleteCheq/:id',
-// [verifyToken, isUser],
+ [verifyToken, isUser],
  deleteCheq)
 route.put('/updateCheq/:id',
-// [verifyToken, isUser],
+ [verifyToken, isUser],
  updateCheq)
 route.get('/detailCheq/:id',
-// [verifyToken, isUser], 
+ [verifyToken, isUser], 
 detailCheq)
 route.get('/cheq',
-// [verifyToken, isUser], 
+ [verifyToken, isUser], 
 filterCheq)
 
 

@@ -7,16 +7,16 @@ const {
     createEvent,
     deleteEvent
 } = require('../controllers/eventsControllers')
-//const {verifyToken, isUser }= require('../middlewares/authMiddleware')
+const {verifyToken, isUser }= require('../middlewares/authMiddleware')
 
 route.post('/newevent',
-// [verifyToken, isUser],
+ [verifyToken, isUser],
  createEvent)
 route.get('/',
-// [verifyToken, isUser], 
+ [verifyToken, isUser], 
 getEvents)
 route.delete('/:id',
-// [verifyToken, isUser],
+ [verifyToken, isUser],
  deleteEvent)
 
 
