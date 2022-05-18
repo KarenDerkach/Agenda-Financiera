@@ -1,0 +1,26 @@
+{
+    "name": "todo-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "workspaces": [
+      "backend"
+      
+    ],
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "npm run start --workspace=backend"
+      
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/KarenDerkach/Todo-App.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/KarenDerkach/Todo-App/issues"
+    },
+    "homepage": "https://github.com/KarenDerkach/Todo-App#readme"
+  
+  }
