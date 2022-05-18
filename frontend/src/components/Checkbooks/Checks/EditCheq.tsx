@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 
 import { StoreState, Cheq } from "../../../tools/interface";
 import { connect } from "react-redux";
