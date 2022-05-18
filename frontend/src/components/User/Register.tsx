@@ -75,7 +75,7 @@ function Register() {
           </Form.Group>
 
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Correo</Form.Label>
             <Form.Control
               type="email"
               value={input.email}
@@ -86,7 +86,7 @@ function Register() {
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Contraseña</Form.Label>
             <Form.Control
               type="password"
               value={input.password}
@@ -97,7 +97,7 @@ function Register() {
           </Form.Group>
 
           <Form.Group controlId="confirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
+            <Form.Label>Confirmar contraseña</Form.Label>
             <Form.Control
               type="password"
               value={input.confirmpassword}
