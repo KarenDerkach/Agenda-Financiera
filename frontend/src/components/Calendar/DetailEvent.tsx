@@ -1,24 +1,24 @@
-import React from "react";
-import { connect } from "react-redux";
+import React ,{useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { StoreState, Event } from "../../tools/interface";
 import { deleteEvent, getAllEvents } from "../../redux/actions/Calendar/events";
 import { FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import './DetailEvent.css';
 
-interface DetailProps {
-  stateEvent: Event[];
-  getAllEvents(): any;
-  deleteEvent(id: string): any;
-}
 
-function DetailEvent(props: DetailProps) {
-  React.useEffect(() => {
-    props.getAllEvents();
-  }, [props]);
+
+export default function DetailEvent() {
+
+  const dispatch = useDispatch();
+  const stateEvent = useSelector((state: StoreState) => state.stateEvent);
+
+  useEffect(() => {
+   dispatch(getAllEvents());
+  }, [dispatch,stateEvent]);
 
   const handleDelete = (id: string) => {
-    props.deleteEvent(id);
+    dispatch(deleteEvent(id));
   };
 
   function configDate(date: any) {
@@ -48,8 +48,8 @@ function DetailEvent(props: DetailProps) {
           </tr>
         </thead>
         <tbody>
-          {props.stateEvent.length > 0 ? (
-            props.stateEvent.map((data: Event) => {
+          {stateEvent.length > 0 ? (
+           stateEvent.map((data: Event) => {
               return (
                 <>
                   <tr>
@@ -88,12 +88,3 @@ function DetailEvent(props: DetailProps) {
   );
 }
 
-const mapStateToProps = (state: StoreState): { stateEvent: Event[] } => {
-  return {
-    stateEvent: state.stateEvent,
-  };
-};
-
-export default connect(mapStateToProps, { deleteEvent, getAllEvents })(
-  DetailEvent
-);

@@ -27,7 +27,7 @@ export function registerUser (input:Object) {
 
     localStorage.setItem("token", JSON.stringify(data));
   } catch (error:any) {
-    console.log("el errror", error);
+    //console.log("el errror", error);
     dispatch({
       type: actionsTypes.userRegisterFail,
       payload: error.response && error.response.data.message

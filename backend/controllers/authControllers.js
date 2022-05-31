@@ -37,7 +37,9 @@ try{
       email,
       password : UserModel.encryptPassword(password),
     });
-    
+
+    console.log("newUsuario", newUsuario)
+
     if(role){
     const foundRole = await RoleModel.find({name:  role})
  newUsuario.role = foundRole.map(role => role._id) 
@@ -48,7 +50,7 @@ try{
   }
 
     const savedUser = await newUsuario.save();
-    // console.log(savedUser)
+     console.log("saveUsuario",savedUser)
 
     // Generar JWT
      const token = await generateToken(savedUser._id);

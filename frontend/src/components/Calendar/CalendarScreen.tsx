@@ -4,17 +4,16 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import moment from "moment";
 import 'moment/locale/es';
-import { connect } from "react-redux";
-import { StoreState, Event } from "../../tools/interface";
-import {  deleteEvent, getAllEvents} from "../../redux/actions/Calendar/events"
-import React from "react";
+import {   getAllEvents} from "../../redux/actions/Calendar/events"
+import React, {useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Calendar, dateFnsLocalizer} from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import{messages}  from '../../tools/messageCalendar'
-import swal from 'sweetalert';
 import './CalendarScreen.css';
 import NewEvent from "./NewEvent";
+import { StoreState } from "../../tools/interface";
 
 
 const locales = moment.locale('es');
@@ -28,19 +27,21 @@ const localizer = dateFnsLocalizer({
 });
 
 
-interface DetailProps {
-  stateEvent: Event[];
-  getAllEvents():any;
-}
 
 
 
 
-function CalendarScreen(props: DetailProps) {
 
-  React.useEffect(() => {
-    props.getAllEvents();
-  }, [props]);
+ export default function CalendarScreen() {
+
+  const infoEvents = useSelector((state: StoreState) => state.stateEvent);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllEvents());
+  }, [dispatch]);
+
+ // console.log("ESTADO DE EVENTOS",infoEvents)
 
     /*CONFIG MODAL*/
 
@@ -85,12 +86,12 @@ function CalendarScreen(props: DetailProps) {
          
           <Calendar 
           localizer={localizer}
-           events={props.stateEvent} 
+           events={infoEvents} 
            startAccessor="start" 
            endAccessor="end"
            messages={messages}
            defaultDate={new Date()}
-            onSelectEvent={(event) => swal( event.type[0], event.title )}
+           // onSelectEvent={(events) => swal( events.type[0], events.title )}
           style={{ height: 500, margin: "50px" }} 
             />
       </div>
@@ -98,10 +99,6 @@ function CalendarScreen(props: DetailProps) {
   );
 }
 
-const mapStateToProps = (state: StoreState): { stateEvent: Event[] } => {
-  return {
-    stateEvent: state.stateEvent,
-  };
-};
 
-export default connect(mapStateToProps, { deleteEvent, getAllEvents})(CalendarScreen);
+
+
