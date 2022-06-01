@@ -34,19 +34,19 @@ const dispatch = useDispatch();
 
 // console.log("INFO DE STATE", props.stateCheq)
 
-  useEffect(() => {
-    if(change===false){
-      dispatch(getCheq());
-    }else{
-      dispatch(filterCheq(filter))
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [change, filter, stateCheq]);
-
   // useEffect(() => {
-  //   dispatch(getCheq());
+  //   if(!change){
+  //     dispatch(getCheq());
+  //   }else{
+  //     dispatch(filterCheq(filter))
+  //   }
   // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // } , [stateCheq]);
+  // }, [change, filter, stateCheq]);
+
+  useEffect(() => {
+    dispatch(getCheq());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  } , [dispatch, stateCheq]);
 
 
   

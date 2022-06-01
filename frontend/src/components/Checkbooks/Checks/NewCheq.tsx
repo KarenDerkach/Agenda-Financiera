@@ -1,24 +1,19 @@
 import React
 , { Dispatch } 
 from "react";
-
-import { connect } from "react-redux";
+import {  useDispatch } from "react-redux";
 import Modal from "react-modal";
 import swal from "sweetalert";
 import moment from "moment";
-import { StoreState, Cheq } from "../../../tools/interface";
+import { Cheq } from "../../../tools/interface";
 import {
   addCheq,
-  getCheq,
 } from "../../../redux/actions/Cheqbooks/cheqActions";
 
 //import style from './NewCheq.module.css'
 
 
 interface CheqOwnProps {
-  stateCheq: Cheq[];
-  addCheq(cheq: Cheq): any;
-  getCheq(): any;
   isChange: Dispatch<boolean>;
   modal: boolean;
     openModal(): any;
@@ -48,9 +43,9 @@ Modal.setAppElement('#root');
 
 /**Fin config */
 
-function NewCheq(props: CheqOwnProps) {
+export default  function NewCheq(props: CheqOwnProps) {
 
- 
+ const dispatch = useDispatch();
   const typeCheq =  ["Cheque Propio", "Cheque Tercero"]
 
  
@@ -98,8 +93,9 @@ function NewCheq(props: CheqOwnProps) {
       input.importe !== 0
     ) {
       e.preventDefault();
-      props.addCheq(input);
-      props.isChange(true);
+      dispatch(addCheq(input));
+      props.closeModal();
+      // props.isChange(true);
       setInput({
         cliente: "",
         banco: "",
@@ -185,7 +181,7 @@ function NewCheq(props: CheqOwnProps) {
                     Numero de cheque
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
                     placeholder="Numero de cheque"
                     name="numero"
@@ -260,13 +256,6 @@ function NewCheq(props: CheqOwnProps) {
   );
 }
 
-const mapStateToProps = (state: StoreState): { stateCheq: Cheq[] } => {
-  return {
-    stateCheq: state.stateCheq,
-  };
-};
 
-export default connect(mapStateToProps, {
-  addCheq,
-  getCheq,
-})(NewCheq);
+
+

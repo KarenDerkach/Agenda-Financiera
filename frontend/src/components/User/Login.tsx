@@ -24,6 +24,7 @@ export default function Login() {
   })
   // console.log("EL ESTADO DE USUARIO",userLogin)
   const [message, setMessage] = useState("");
+  
 
   //si el usuario ya esta logeado no entrara a este componente
   useEffect(() => {
@@ -32,6 +33,8 @@ export default function Login() {
      
     }
   }, [isLogged, navigate])
+
+
 
  
 const handleChange = (e:any) => {
