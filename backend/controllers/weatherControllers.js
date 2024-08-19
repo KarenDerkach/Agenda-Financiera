@@ -34,7 +34,7 @@ const dataAPI = async (req, res) => {
                     longitud: dataCity.coord.lon
                 };
                 arrayCiudades.push(ciudad)
-              return  res.status(200).send(ciudad)
+                return res.status(200).send(ciudad)
 
             } else {
                 res.status(404).send("ERROR")
@@ -52,23 +52,23 @@ const dataAPI = async (req, res) => {
 
 //info extendida de ciudad
 const detailCity = async (req, res) => {
-    const { latitud , longitud } = req.params
+    const { latitud, longitud } = req.params
     try {
         const extendedWeather = await axios.get(
             `${URL_API_DETAIL}lat=${latitud}&lon=${longitud}&lang=es&appid=${API_PASSWORD}&units=metric`
-          );
-        if(extendedWeather){
+        );
+        if (extendedWeather) {
             const dataExtended = await extendedWeather.data
             const detail = {
                 name: dataExtended.timezone.split('/').splice(1).shift(),
-                current : dataExtended.current,
-                minute : dataExtended.minutely,
+                current: dataExtended.current,
+                minute: dataExtended.minutely,
                 daily: dataExtended.daily,
                 hourly: dataExtended.hourly,
 
             }
             res.status(200).send(detail)
-        }else{
+        } else {
             res.status(404).send("ERROR")
         }
 
@@ -111,6 +111,6 @@ const deleteCity = async (req, res) => {
 module.exports = {
     dataAPI,
     getAllCities,
-   detailCity,
+    detailCity,
     deleteCity
 }
