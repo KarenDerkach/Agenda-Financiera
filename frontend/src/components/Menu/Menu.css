@@ -25,16 +25,18 @@
 }
 
 .sub-title-menu{
-    text-decoration: underline solid rgb(68, 68, 68);
+    /* text-decoration: underline solid rgb(68, 68, 68); */
     font-size: 1.5rem;
     margin-top: 5vh;
 }
 
 .list-items{
-    display: flex;
+    display: flex
+;
     flex-direction: column;
-    margin-top: 5vh;
-
+    justify-content: center;
+    align-items: flex-start;
+    margin: 2% auto;
 }
 
 .item-menu{
@@ -43,8 +45,17 @@
     margin: 20px
 }
 
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color: rgb(103, 228, 30);
+}
+
 .icon-check{
     font-size: 2rem;
     color: rgb(103, 228, 30);
+    margin-right: 20px;
    
 }

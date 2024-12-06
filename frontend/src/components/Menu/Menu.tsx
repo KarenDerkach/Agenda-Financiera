@@ -1,24 +1,46 @@
-import React from 'react'
-import './Menu.css'
-import {IoMdCheckmarkCircleOutline} from 'react-icons/io'
+import { Link } from "react-router-dom";
+import "./Menu.css";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 export default function Menu() {
   return (
-    <div className='bkg-main'>
-     <div className='menu-container'>
-     <h1 className='menu-title'>Agenda Financiera</h1>
+    <div className="bkg-main">
+      <div className="menu-container">
+        <h1 className="menu-title">QuickTask Planner</h1>
 
-     <h4 className='sub-title-menu'>Funcionalidades</h4>
-     
-     <ul className='list-items'>
-        <li className='item-menu'><IoMdCheckmarkCircleOutline className='icon-check'/>  Visualizar el clima de tu localidad</li>
-       <li className='item-menu'> <IoMdCheckmarkCircleOutline className='icon-check'/>  Administrar Cheques recibidos o emitidos</li>
-        <li  className='item-menu'>  <IoMdCheckmarkCircleOutline className='icon-check'/>  Servicio Calculadora</li>
-        <li className='item-menu'> <IoMdCheckmarkCircleOutline className='icon-check'/>  Servicio Calendario</li>
-       {/* <li className='item-menu'> <IoMdCheckmarkCircleOutline/>  Servicio de Notificaciones de vencimientos mensuales</li> */}
-     </ul>
-     </div>
-        
+        <h4 className="sub-title-menu">What can you find here?</h4>
+
+        <ul className="list-items">
+          <li className="item-menu">
+            <Link to="/weather">
+              {" "}
+              <IoMdCheckmarkCircleOutline className="icon-check" /> Visualize
+              the weather in your area
+            </Link>
+          </li>
+          <li className="item-menu">
+            {" "}
+            <Link to="/calendar">
+              <IoMdCheckmarkCircleOutline className="icon-check" /> Calendar
+              service
+            </Link>
+          </li>
+          <li className="item-menu">
+            {" "}
+            <Link to="/cheques">
+              <IoMdCheckmarkCircleOutline className="icon-check" /> Checkbook
+              service{" "}
+            </Link>
+          </li>
+          <li className="item-menu">
+            {" "}
+            <Link to="/calculator">
+              <IoMdCheckmarkCircleOutline className="icon-check" /> Calculator
+              service{" "}
+            </Link>
+          </li>
+        </ul>
+      </div>
     </div>
-  )
+  );
 }

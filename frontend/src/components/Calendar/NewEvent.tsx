@@ -5,7 +5,6 @@ import moment from "moment";
 import swal from "sweetalert";
 import { Event } from "../../tools/interface";
 import { createEvent } from "../../redux/actions/Calendar/events";
-import DateTimePicker from "react-datetime-picker";
 import "react-datepicker/dist/react-datepicker.css";
 import style from "./NewEvent.module.css";
 
@@ -98,6 +97,7 @@ export default function NewEvent(props: EventProps) {
       dispatch(createEvent(formValues));
       swal({ title: "Evento creado", icon: "success" });
       setformValues(initEvent);
+      props.closeModal();
     } else {
       swal("Error", "Complete los campos requeridos", "error");
     }
@@ -155,19 +155,23 @@ export default function NewEvent(props: EventProps) {
           </div>
           <div className="form-group">
             <label className={style.modal_title}>Fecha Inicio</label>
-            <DateTimePicker
+
+            <input
+              type="date"
               className="form-control"
-              value={startDate}
-              onChange={handleChangeStart}
+              value={moment(startDate).format("YYYY-MM-DD")}
+              onChange={(e) => handleChangeStart(e.target.value)}
             />
           </div>
           <div className="form-group">
             <label className={style.modal_title}>Fecha de finalizacion</label>
-            <DateTimePicker
+
+            <input
+              type="date"
               className="form-control"
-              value={endDate}
-              minDate={startDate}
-              onChange={handleChangeEnd}
+              value={moment(endDate).format("YYYY-MM-DD")}
+              min={moment(startDate).format("YYYY-MM-DD")}
+              onChange={(e) => handleChangeEnd(e.target.value)}
             />
           </div>
           <div className="form-group">

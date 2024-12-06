@@ -3,9 +3,6 @@ import Main from "../User/Main";
 import "./Navbar.css";
 
 export default function Navbar() {
-
-
-
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light "
@@ -13,7 +10,7 @@ export default function Navbar() {
     >
       <Link to="/" className="navbar-brand">
         {" "}
-        Inicio
+        Home
       </Link>
       <button
         className="navbar-toggler"
@@ -30,30 +27,26 @@ export default function Navbar() {
         <ul className="navbar-nav">
           <li className="nav-item active">
             <Link to="/weather" className="nav-link">
-              Clima
+              Weather
             </Link>
           </li>
           <li className="nav-item active">
             <Link to="/calendar" className="nav-link">
-              Calendario
+              Calendar
             </Link>
           </li>
           <li className="nav-item">
             <Link to="/cheques" className="nav-link">
               {" "}
-              Chequera
+              CheckBook
             </Link>
           </li>
           <li className="nav-item">
             <Link to="/calculator" className="nav-link">
               {" "}
-              Calculadora
+              Calculator
             </Link>
           </li>
-
-          {/* <li classNameName="nav-item">
-                       <Link to='/notas' classNameName="nav-link"> Notas</Link> 
-                    </li> */}
         </ul>
       </div>
       <div className="login-secction">
