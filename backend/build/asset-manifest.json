@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8bc19764.css",
+    "main.js": "/static/js/main.ab7dedea.js",
+    "static/media/bkg-home.jpg": "/static/media/bkg-home.6bb12c3469a2db56366b.jpg",
+    "static/media/background.jpg": "/static/media/background.6c95c7cc102958e2adbd.jpg",
+    "static/media/clock.png": "/static/media/clock.41842c92d7b74f12ae98.png",
+    "static/media/sunrise.png": "/static/media/sunrise.21f0fd638577780cbfc6.png",
+    "static/media/sunset.png": "/static/media/sunset.0ef65265612c37d5a889.png",
+    "index.html": "/index.html",
+    "main.8bc19764.css.map": "/static/css/main.8bc19764.css.map",
+    "main.ab7dedea.js.map": "/static/js/main.ab7dedea.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8bc19764.css",
+    "static/js/main.ab7dedea.js"
+  ]
+}
