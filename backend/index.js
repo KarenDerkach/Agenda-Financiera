@@ -5,7 +5,7 @@ const {
 } = process.env;
 
 if (NODE_ENV !== 'production') {
-require('dotenv').config();
+  require('dotenv').config();
 }
 const middlewares = require('./middlewares/errorMiddleware')
 const createRoles = require('./helpers/initialSetUp')
@@ -25,6 +25,8 @@ app.use(morgan('dev'))
 //permite entender codigo que mande el usuario mediante un form por ejemplo, extended:true -> permite recibir data e imagenes
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
+//Middleware que permite renderizar contenido estatico (HTML, por ejemplo del build realizado en nuestro front que se aloja en la carpeta 'dist')
+app.use(express.static('build'))
 
 
 app.use('/', routes)
@@ -47,20 +49,20 @@ app.use((req, res, next) => {
 // });
 
 // Error Handling middlewares
- app.use(middlewares.notFound);
- app.use(middlewares.errorHandler);
+app.use(middlewares.notFound);
+app.use(middlewares.errorHandler);
 
 //el metedo set de express permite dar nombre a una variable y asignarle un valor
-app.set('port', PORT || 3001) 
+app.set('port', PORT || 3001)
 
-app.listen( app.get('port'),  async() => {
-  try{ 
-      console.log(`server running on port ${app.get('port')}`)
-      await connection()
-      console.log('CONNECTION DB OK')
+app.listen(app.get('port'), async () => {
+  try {
+    console.log(`server running on port ${app.get('port')}`)
+    await connection()
+    console.log('CONNECTION DB OK')
   }
-  catch(err){
-      console.log(err)
+  catch (err) {
+    console.log(err)
   }
-  
+
 })
